@@ -8,6 +8,6 @@ class IndexController extends Controller\AdminBaseController
 {
     public function index()
     {
-        $this->show('系统管理员后台');
+        $this->display();
     }
 }

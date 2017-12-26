@@ -8,8 +8,12 @@
 
 namespace Business\Controller;
 
+use Common\Controller;
 
-class RegisterController
+class RegisterController extends Controller\BusinessBaseController
 {
-
+    public function register()
+    {
+        $this->display();
+    }
 }

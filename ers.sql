@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 25/12/2017 11:24:44
+ Date: 26/12/2017 19:05:50
 */
 
 SET NAMES utf8mb4;
@@ -57,6 +57,86 @@ CREATE TABLE `ers_auth_rule` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='规则表';
 
 -- ----------------------------
+-- Table structure for ers_order
+-- ----------------------------
+DROP TABLE IF EXISTS `ers_order`;
+CREATE TABLE `ers_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `sid` int(11) NOT NULL COMMENT '店铺id',
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `pid` int(11) NOT NULL COMMENT '价格id',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `sid` (`sid`),
+  KEY `pid` (`pid`),
+  CONSTRAINT `ers_order_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `ers_users` (`id`),
+  CONSTRAINT `ers_order_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `ers_shop` (`id`),
+  CONSTRAINT `ers_order_ibfk_3` FOREIGN KEY (`pid`) REFERENCES `ers_price` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+
+-- ----------------------------
+-- Table structure for ers_price
+-- ----------------------------
+DROP TABLE IF EXISTS `ers_price`;
+CREATE TABLE `ers_price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '价格表id',
+  `price` decimal(11,0) DEFAULT NULL COMMENT '维修价格',
+  `sid` int(11) DEFAULT NULL COMMENT '店铺id',
+  `tid` int(11) DEFAULT NULL COMMENT '维修类别id',
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`),
+  KEY `tid` (`tid`),
+  CONSTRAINT `ers_price_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `ers_shop` (`id`),
+  CONSTRAINT `ers_price_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `ers_type` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='价格表';
+
+-- ----------------------------
+-- Table structure for ers_shop
+-- ----------------------------
+DROP TABLE IF EXISTS `ers_shop`;
+CREATE TABLE `ers_shop` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '店铺id',
+  `name` varchar(60) NOT NULL COMMENT '店铺名',
+  `score` int(11) DEFAULT NULL COMMENT '评分',
+  `orders` int(11) DEFAULT NULL COMMENT '订单数',
+  `detail` text COMMENT '店铺详情',
+  `check` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态 0：未审核 1：审核通过 2：审核未通过',
+  `uid` int(11) NOT NULL COMMENT '商家id',
+  `tid` int(11) DEFAULT NULL COMMENT '维修类别',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `tid` (`tid`),
+  CONSTRAINT `ers_shop_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `ers_users` (`id`),
+  CONSTRAINT `ers_shop_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `ers_type` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='店铺表';
+
+-- ----------------------------
+-- Table structure for ers_type
+-- ----------------------------
+DROP TABLE IF EXISTS `ers_type`;
+CREATE TABLE `ers_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '维修类别id',
+  `name` varchar(60) DEFAULT NULL COMMENT '类别名',
+  `pid` int(11) DEFAULT '0' COMMENT '上一级分类id 0：顶级分类',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='维修类别表';
+
+-- ----------------------------
+-- Records of ers_type
+-- ----------------------------
+BEGIN;
+INSERT INTO `ers_type` VALUES (1, '家电维修', 0);
+INSERT INTO `ers_type` VALUES (2, '数码维修', 0);
+INSERT INTO `ers_type` VALUES (3, '手机', 2);
+INSERT INTO `ers_type` VALUES (4, '平板', 2);
+INSERT INTO `ers_type` VALUES (5, '电脑', 2);
+INSERT INTO `ers_type` VALUES (6, '小米', 3);
+INSERT INTO `ers_type` VALUES (7, '魅族', 3);
+INSERT INTO `ers_type` VALUES (8, '一加', 3);
+INSERT INTO `ers_type` VALUES (9, '华为', 3);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for ers_users
 -- ----------------------------
 DROP TABLE IF EXISTS `ers_users`;
@@ -68,7 +148,7 @@ CREATE TABLE `ers_users` (
   `phone` bigint(11) NOT NULL COMMENT '手机号',
   `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
   `sex` varchar(10) DEFAULT NULL COMMENT '性别',
-  `address` varchar(255) DEFAULT NULL COMMENT '住址',
+  `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `register_time` int(11) NOT NULL COMMENT '注册时间',
   `login_time` int(11) NOT NULL COMMENT '最后一次登录时间',
   PRIMARY KEY (`id`)

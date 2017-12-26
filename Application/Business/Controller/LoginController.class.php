@@ -8,8 +8,12 @@
 
 namespace Business\Controller;
 
+use Common\Controller;
 
-class LoginController
+class LoginController extends Controller\BusinessBaseController
 {
-
+    public function login()
+    {
+        $this->display();
+    }
 }

@@ -8,6 +8,6 @@ class IndexController extends Controller\BusinessBaseController
 {
     public function index()
     {
-        $this->show('商家后台');
+        $this->display();
     }
 }

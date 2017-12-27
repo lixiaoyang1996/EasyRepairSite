@@ -26,7 +26,7 @@ class LoginController extends Controller
          $result = $users->where("username='%s' AND password='%s'", $username, $password)->find();
          if ($result) {
              $_SESSION['userId']=$result['id'];
-             response('1','登陆成功！',array('id'=>$result['id'],'url'=>U('Business/Index/index')));
+             response('1','登陆成功！',array('id'=>$result['id'],'url'=>U('Business/SalesVolume/index')));
          }else{
              response('0','登陆失败！');
            }

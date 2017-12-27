@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>易修网 | 登录</title>
+    <title>易修网 | 管理员登录</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -31,7 +31,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>易修网</b>登录</a>
+        <a href="../../index2.html"><b>易修网</b>管理员登录</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -39,11 +39,11 @@
 
         <form action="../../index2.html" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="用户名" name="userName">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="密码" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -56,7 +56,9 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    <button type="button" class="btn btn-primary btn-block btn-flat"
+                            onclick="login('{:U('Admin/Login/login')}')">登录
+                    </button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -65,11 +67,11 @@
         <div class="social-auth-links text-center">
             <!--<p>- OR -</p>-->
             <!--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in-->
-                <!--using-->
-                <!--Facebook</a>-->
+            <!--using-->
+            <!--Facebook</a>-->
             <!--<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in-->
-                <!--using-->
-                <!--Google+</a>-->
+            <!--using-->
+            <!--Google+</a>-->
         </div>
         <!-- /.social-auth-links -->
 
@@ -95,6 +97,23 @@
             increaseArea: '20%' /* optional */
         });
     });
+
+    function login(url) {
+        var data = $('form').serializeArray();
+        $.ajax({
+                url: url,
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    alert(response.message);
+                    if (response.data.url) {
+                        window.location.href = response.data.url;
+                    }
+                }
+            }
+        );
+    }
 </script>
 </body>
 </html>

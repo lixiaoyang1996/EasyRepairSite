@@ -8,9 +8,9 @@
 
 namespace Business\Controller;
 
-use Common\Controller;
+use Think\Controller;
 
-class LoginController extends Controller\BusinessBaseController
+class LoginController extends Controller
 {
     public function login()
     {
@@ -18,19 +18,20 @@ class LoginController extends Controller\BusinessBaseController
     }
 
     public function checkLogin()
-    {
-        $username = I('post.username');
-        $password = I('post.password');
-        $users = M('users');
+     {
+         $username = I('post.username');
+         $password = md5(I('post.password'));
+         $users = M('users');
 
-        $result = $users->where("username='%s' AND password='%s'", $username, $password)->find();
-        if ($result) {
-            $_SESSION['username'] = $result['username'];
-            $this->success('登陆成功', U('Index/index'), 3);
-        }else{
-            $this->error("登录失败");
-        }
+         $result = $users->where("username='%s' AND password='%s'", $username, $password)->find();
+         if ($result) {
+             $_SESSION['userId']=$result['id'];
+             response('1','登陆成功！',array('id'=>$result['id'],'url'=>U('Business/Index/index')));
+         }else{
+             response('0','登陆失败！');
+           }
     }
+
     public function logout()
     {
         session(null);

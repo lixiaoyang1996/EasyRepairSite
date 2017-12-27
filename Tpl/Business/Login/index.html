@@ -56,8 +56,9 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <!--<button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>-->
-                    <input type="submit" class="btn btn-primary btn-block btn-flat" url="{:U('Login/checklogin')}" value="登录">
+                    <button type="button" class="btn btn-primary btn-block btn-flat"
+                            onclick="login('{:U('Business/Login/checkLogin')}')">登录
+                    </button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -87,7 +88,22 @@
     });
 </script>
 <script>
-
+    function login(url) {
+        var data = $('form').serializeArray();
+        $.ajax({
+                url: url,
+                type: 'post',
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    alert(response.message);
+                    if (response.data.url) {
+                        window.location.href = response.data.url;
+                    }
+                }
+            }
+        );
+    }
 </script>
 </body>
 </html>

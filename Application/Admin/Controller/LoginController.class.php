@@ -7,9 +7,9 @@
 
 namespace Admin\Controller;
 
-use Common\Controller;
+use Think\Controller;
 
-class LoginController extends Controller\AdminBaseController
+class LoginController extends Controller
 {
     public function index()
     {

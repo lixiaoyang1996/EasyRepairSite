@@ -11,6 +11,16 @@ use Think\Controller;
 
 class AdminBaseController extends Controller
 {
+    public function _initialize()
+    {
+        // 判断用户是否有权限登录管理员后台
+        $auth = new \Think\Auth();
+        $result = $auth->check('Admin/*', $_SESSION['userId']);
+        if (!$result) {
+            header('location:' . U('Admin/Login/index'));
+        }
+    }
+
     /**
      *判断是否支持pjax
      */

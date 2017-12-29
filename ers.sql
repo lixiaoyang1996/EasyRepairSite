@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 26/12/2017 19:05:50
+ Date: 29/12/2017 09:39:47
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,16 @@ CREATE TABLE `ers_auth_group` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：正常 0：禁用',
   `rules` char(80) NOT NULL DEFAULT '' COMMENT '用户组拥有的规则id 多个规则用“,”分开',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户组表';
+
+-- ----------------------------
+-- Records of ers_auth_group
+-- ----------------------------
+BEGIN;
+INSERT INTO `ers_auth_group` VALUES (1, '普通用户', 1, '3');
+INSERT INTO `ers_auth_group` VALUES (2, '商家', 1, '2');
+INSERT INTO `ers_auth_group` VALUES (3, '管理员', 1, '1');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for ers_auth_group_access
@@ -42,6 +51,15 @@ CREATE TABLE `ers_auth_group_access` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组明细表';
 
 -- ----------------------------
+-- Records of ers_auth_group_access
+-- ----------------------------
+BEGIN;
+INSERT INTO `ers_auth_group_access` VALUES (1, 3);
+INSERT INTO `ers_auth_group_access` VALUES (2, 1);
+INSERT INTO `ers_auth_group_access` VALUES (3, 2);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for ers_auth_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `ers_auth_rule`;
@@ -54,7 +72,16 @@ CREATE TABLE `ers_auth_rule` (
   `condition` char(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就认证，不为空表示按照条件认证',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='规则表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='规则表';
+
+-- ----------------------------
+-- Records of ers_auth_rule
+-- ----------------------------
+BEGIN;
+INSERT INTO `ers_auth_rule` VALUES (1, 'Admin/*', '管理员后台', 1, 1, '');
+INSERT INTO `ers_auth_rule` VALUES (2, 'Business/*', '商家后台', 1, 1, '');
+INSERT INTO `ers_auth_rule` VALUES (3, 'User/*', '普通用户后台', 1, 1, '');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for ers_order
@@ -152,6 +179,15 @@ CREATE TABLE `ers_users` (
   `register_time` int(11) NOT NULL COMMENT '注册时间',
   `login_time` int(11) NOT NULL COMMENT '最后一次登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- Records of ers_users
+-- ----------------------------
+BEGIN;
+INSERT INTO `ers_users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@ers.com', 11111111111, NULL, NULL, NULL, 0, 0);
+INSERT INTO `ers_users` VALUES (2, 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'user1@qq.com', 11111111111, NULL, NULL, NULL, 0, 0);
+INSERT INTO `ers_users` VALUES (3, 'business1', 'ab36fdc41550db15fd4a47f2e44f0076', 'business1@qq.com', 11111111111, NULL, NULL, NULL, 0, 0);
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

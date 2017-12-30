@@ -1,89 +1,110 @@
 <div class="content-wrapper">
     <div class="container">
-        <div class="box box-info" style="margin-top: 50px">
-            <div class="box-header with-border">
-                <h3 class="box-title"><font style="vertical-align: inherit;"><font
-                        style="vertical-align: inherit;">订单详情</font></font></h3>
 
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                    </button>
+        <div class="box" style="margin-top: 50px">
+            <div class="box-header">
+                <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat"><font
+                        style="vertical-align: inherit;"><font style="vertical-align: inherit;"><i
+                        class="glyphicon glyphicon-plus"></i>放置新订单</font></font></a>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table no-margin">
-                        <thead>
-                        <tr>
-                            <th><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">订单ID</font></font></th>
-                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目</font></font>
-                            </th>
-                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">状态</font></font>
-                            </th>
-                            <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">声望</font></font>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">OR9842</font></font></a></td>
-                            <td><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">使命召唤四</font></font></td>
-                            <td><span class="label label-success"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">运</font></font></span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                    <canvas width="34" height="20"
-                                            style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">OR1848</font></font></a></td>
-                            <td><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">三星智能电视</font></font></td>
-                            <td><span class="label label-warning"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">有待</font></font></span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#f39c12" data-height="20">
-                                    <canvas width="34" height="20"
-                                            style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">OR9842</font></font></a></td>
-                            <td><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">使命召唤四</font></font></td>
-                            <td><span class="label label-success"><font style="vertical-align: inherit;"><font
-                                    style="vertical-align: inherit;">运</font></font></span></td>
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                    <canvas width="34" height="20"
-                                            style="display: inline-block; width: 34px; height: 20px; vertical-align: top;"></canvas>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                                       aria-describedby="example2_info">
+                                    <thead>
+                                    <tr style="color:darkolivegreen">
+                                        <th style="text-align: center"><font
+                                                style="vertical-align: inherit;">订单ID</font></font></th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">用户名</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">店铺名</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">服务类型</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">下单时间</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">服务价格</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">服务状态</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">操作1</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">操作2</font></font>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row" style="text-align: center">
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit">kb001</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">admin</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">幸福一家</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">手机维修</font></font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">2016-01-02</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">￥50</font></td>
+                                        <td style="padding-top: 13px;"><span class="label label-success">Shipped</span></td>
+                                        <td><a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat">
+                                            <font style="vertical-align: inherit;"><i
+                                                    class="glyphicon glyphicon-pencil"></i>&nbsp;修改</font></a>
+                                        </td>
+                                        <td><a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat">
+                                            <font style="vertical-align: inherit;"><i
+                                                    class="glyphicon glyphicon-trash"></i>&nbsp;删除</font></a>
+                                        </td>
+                                    </tr>
+
+                                    <tr role="row" style="text-align: center">
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit">kb001</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">admin</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">幸福一家</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">手机维修</font></font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">2016-01-02</font></td>
+                                        <td style="padding-top: 15px;"><font style="vertical-align: inherit;">￥50</font></td>
+                                        <td style="padding-top: 13px;"><span class="label label-success">Shipped</span></td>
+                                        <td><a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat">
+                                            <font style="vertical-align: inherit;"><i
+                                                    class="glyphicon glyphicon-pencil"></i>&nbsp;修改</font></a>
+                                        </td>
+                                        <td><a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat">
+                                            <font style="vertical-align: inherit;"><i
+                                                    class="glyphicon glyphicon-trash"></i>&nbsp;删除</font></a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.table-responsive -->
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left"><font
-                        style="vertical-align: inherit;"><font style="vertical-align: inherit;">放置新订单</font></font></a>
-            </div>
-            <!-- /.box-footer -->
         </div>
     </div>
+
     <!-- /.container -->
 </div>
 <!-- /.content-wrapper -->

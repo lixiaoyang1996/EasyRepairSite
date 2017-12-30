@@ -11,6 +11,16 @@ use Think\Controller;
 
 class BusinessBaseController extends Controller
 {
+    public function _initialize()
+    {
+        // 判断用户是否有权限登录管理员后台
+        $auth = new \Think\Auth();
+        $result = $auth->check('Business/*', $_SESSION['userId']);
+        if (!$result) {
+            header('location:' . U('Business/Login/index'));
+        }
+    }
+
     /**
      *判断是否支持pjax
      */

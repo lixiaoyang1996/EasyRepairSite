@@ -39,7 +39,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="{:U(Index/index)}" class="navbar-brand"><b>易修网</b>商家后台</a>
+                    <a href="{:U('SalesVolume/index')}" class="navbar-brand"><b>易修网</b>商家后台</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                             data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
@@ -53,7 +53,7 @@
                         <li><a href="{:U('OrderInfo/index')}">订单中心</a></li>
                         <li><a href="{:U('StoreManage/index')}">店铺管理</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">有待发挥 <span
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">敬请期待 <span
                                     class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Action</a></li>
@@ -66,11 +66,11 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
-                        </div>
-                    </form>
+                    <!--<form class="navbar-form navbar-left" role="search">-->
+                        <!--<div class="form-group">-->
+                            <!--<input type="text" class="form-control" id="navbar-search-input" placeholder="Search">-->
+                        <!--</div>-->
+                    <!--</form>-->
                 </div>
                 <!-- /.navbar-collapse -->
                 <!-- Navbar Right Menu -->
@@ -181,7 +181,7 @@
                                 <!-- The user image in the navbar-->
                                 <img src="__ADMINLTE__/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <span class="hidden-xs">Mr.李小李</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -196,25 +196,19 @@
                                 <!-- Menu Body -->
                                 <li class="user-body">
                                     <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
+                                        <div class="col-xs-6 text-center">
+                                            <a href="{:U('BusinessUserInfo/index')}">个人中心</a>
                                         </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
+                                        <div class="col-xs-6 text-center">
+                                            <a href="#">好友</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="{:U('Login/logout')}" class="btn btn-default btn-flat">Sign out</a>
+                                    <div>
+                                        <a href="{:U('Login/logout')}" class="btn btn-primary  btn-block">退出</a>
                                     </div>
                                 </li>
                             </ul>

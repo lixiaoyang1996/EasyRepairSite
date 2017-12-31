@@ -1,0 +1,94 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            权限管理
+            <small>对网站所有的权限规则进行管理</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i>控制面板</a></li>
+            <li><a href="{:U('Admin/Permission/index')}">权限管理</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+          | Your Page Content Here |
+          -------------------------->
+        <div class="box">
+            <div class="box-header">
+                <a href="{:U('Admin/Permission/add')}" class="btn btn-sm btn-primary"><span
+                        class="glyphicon glyphicon-plus"></span>新建
+                </a>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <th>规则</th>
+                        <th>权限名称</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="rules" item="rule">
+                        <tr>
+                            <td>{$rule.id}</td>
+                            <td>{$rule.name}</td>
+                            <td>{$rule.title}</td>
+                            <td>
+                                <if condition="$rule.status eq 1"><span class="label label-success">正常</span></if>
+                                <if condition="$rule.status eq 0"><span class="label label-warning">禁用</span></if>
+                            </td>
+                            <td><a href="{:U('Admin/Permission/edit',array('id'=>$rule['id']))}"><span
+                                    class="glyphicon glyphicon-pencil"></span>修改</a>&nbsp;&nbsp;<a
+                                    href="javascript:void(0)"
+                                    onclick="del({$rule.id},'{:U('Admin/Permission/del')}')"><span
+                                    class="glyphicon glyphicon-trash"></span>删除</a></td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    function del(id, url) {
+        layer.confirm('确定删除本条数据？', {title: '提示'}, function (index) {
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {id: id},
+                dataType: 'json',
+                success: function (response) {
+                    layer.msg(response.message, {
+                        icon: response.code,
+                        time: 600
+                    }, function () {
+                        if (response.url) {
+                            window.location.href = response.url;
+                        }
+                    });
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>

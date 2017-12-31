@@ -60,7 +60,7 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{:U('Admin/Index/index')}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>易修网</b>后台</span>
             <!-- logo for regular state and mobile devices -->
@@ -261,20 +261,33 @@ desired effect
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">功能列表</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="treeview active">
+                <li class="active"><a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i> <span>控制面板</span></a>
+                </li>
+                <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>权限控制</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i>权限管理</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>用户组管理</a></li>
+                        <li><a href="{:U('Admin/Permission/index')}"><i class="fa fa-circle-o"></i>权限管理</a></li>
+                        <li><a href="{:U('Admin/Group/index')}"><i class="fa fa-circle-o"></i>用户组管理</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>用户管理</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>商家管理</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>订单管理</span></a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-link"></i> <span>用户管理</span>
+                        <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{:U('Admin/User/index')}"><i class="fa fa-circle-o"></i>普通用户管理</a></li>
+                        <li><a href="{:U('Admin/Business/index')}"><i class="fa fa-circle-o"></i>商家管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="{:U('Admin/Shop/index')}"><i class="fa fa-link"></i> <span>店铺管理</span></a></li>
+                <li><a href="{:U('Admin/Shop/index')}"><i class="fa fa-link"></i> <span>订单管理</span></a></li>
+                <li><a href="{:U('Admin/Shop/index')}"><i class="fa fa-link"></i> <span>服务类别管理</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>

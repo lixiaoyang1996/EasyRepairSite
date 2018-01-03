@@ -1,0 +1,96 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            修改用户
+            <small>修改当前的用户信息</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i>控制面板</a></li>
+            <li><a href="{:U('Admin/Business/index')}">普通用户管理</a></li>
+            <li><a href="{:U('Admin/Business/add')}">新建用户</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+          | Your Page Content Here |
+          -------------------------->
+        <div class="box box-primary">
+            <form role="form">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" class="form-control" id="username" name="username" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" class="form-control" id="password" name="password" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">电话</label>
+                        <input type="number" class="form-control" id="phone" name="phone" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">地址</label>
+                        <input type="text" class="form-control" id="address" name="address" value="">
+                    </div>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status1" value="1"
+                                <if condition="$user.status eq 1">checked</if>
+                                >
+                                正常
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" id="status2" value="0"
+                                <if condition="$user.status eq 0">checked</if>
+                                >
+                                禁用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="button" onclick="save('{:U('Admin/Business/save')}')" class="btn btn-primary">保存
+                    </button>
+                </div>
+            </form>
+            <!-- /.box-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    function save(url) {
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: $('form').serializeArray(),
+            dataType: 'json',
+            success: function (response) {
+                layer.msg(response.message, {
+                    icon: response.code,
+                    time: 600
+                }, function () {
+                    if (response.url) {
+                        window.location.href = response.url;
+                    }
+                });
+            }
+        });
+    }
+</script>

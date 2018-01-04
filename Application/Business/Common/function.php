@@ -6,12 +6,13 @@
  * Time: 9:41
  */
 
-function response($code = '', $message = '', $data = array())
+function response($code = '', $message = '', $data = array(), $url = '')
 {
     $res = array(
         'code' => $code,
         'message' => $message,
-        'data' => $data
+        'data' => $data,
+        'url' => $url
     );
     exit(json_encode($res));
 }

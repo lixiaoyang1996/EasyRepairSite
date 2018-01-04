@@ -20,6 +20,10 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="__ADMINLTE__/css/skins/_all-skins.min.css">
 
+    <link rel="stylesheet" href="__COMPONENTS__/layer/css/layui.css">
+
+    <link rel="stylesheet" href="__ADMINLTE__/css/upload.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,7 +55,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{:U('SalesVolume/index')}">销售分布<span class="sr-only">(current)</span></a></li>
                         <li><a href="{:U('OrderInfo/index')}">订单中心</a></li>
-                        <li><a href="{:U('StoreManage/index')}">店铺管理</a></li>
+                        <li><a href="{:U('StoreManage/index')}">店铺详情</a></li>
+                        <li><a href="{:U('Price/index')}">服务价格</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">敬请期待 <span
                                     class="caret"></span></a>
@@ -200,7 +205,7 @@
                                             <a href="{:U('BusinessUserInfo/index')}">个人中心</a>
                                         </div>
                                         <div class="col-xs-6 text-center">
-                                            <a href="#">好友</a>
+                                            <a href="#">修改密码</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->

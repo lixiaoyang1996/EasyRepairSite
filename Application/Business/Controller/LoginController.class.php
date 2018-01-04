@@ -27,6 +27,7 @@ class LoginController extends Controller
 
         if ($result) {
             $_SESSION['userId'] = $result['id'];
+//            $_SESSION['username'] = $result['username'];
             // 判断用户是否有权限登录管理员后台
             $auth = new \Think\Auth();
             $result = $auth->check('Business/*', $_SESSION['userId']);

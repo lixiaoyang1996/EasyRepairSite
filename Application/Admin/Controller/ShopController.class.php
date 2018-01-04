@@ -33,11 +33,11 @@ class ShopController extends AdminBaseController
         $model = M('shop');
         $shop = $model->where(array('id' => $id))->find();
         $model = new Model();
-        $sql = "select u.username as username,u.address as address,t.name as type from ers_users as u,ers_type as t,ers_shop as s where u.sid=s.id and s.tid=t.id and s.id={$id}";
-        $res = $model->query($sql);
-        $shop['username'] = $res[0]['username'];
-        $shop['type'] = $res[0]['type'];
-        $shop['address'] = $res[0]['address'];
+//        $sql = "select u.username as username,u.address as address,t.name as type from ers_users as u,ers_type as t,ers_shop as s where u.sid=s.id and s.tid=t.id and s.id={$id}";
+//        $res = $model->query($sql);
+//        $shop['username'] = $res[0]['username'];
+//        $shop['type'] = $res[0]['type'];
+//        $shop['address'] = $res[0]['address'];
         $sql = "SELECT p.*,t.name AS brand FROM  ers_shop AS s,ers_type AS t,ers_price AS p WHERE p.tid=t.id AND p.sid=s.id AND s.id={$id}";
         $repairs = $model->query($sql);
         for ($i = 0; $i < count($repairs); $i++) {

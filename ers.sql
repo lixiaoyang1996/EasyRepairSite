@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 03/01/2018 13:45:57
+ Date: 04/01/2018 17:00:48
 */
 
 SET NAMES utf8mb4;
@@ -172,26 +172,28 @@ CREATE TABLE `ers_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '维修类别id',
   `name` varchar(60) DEFAULT NULL COMMENT '类别名',
   `pid` int(11) DEFAULT '0' COMMENT '上一级分类id 0：顶级分类',
+  `show` int(11) NOT NULL DEFAULT '1' COMMENT '是否显示 0：隐藏 1：显示 默认1',
+  `sort` int(11) NOT NULL DEFAULT '99' COMMENT '排序id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='维修类别表';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='维修类别表';
 
 -- ----------------------------
 -- Records of ers_type
 -- ----------------------------
 BEGIN;
-INSERT INTO `ers_type` VALUES (1, '家电维修', 0);
-INSERT INTO `ers_type` VALUES (2, '数码维修', 0);
-INSERT INTO `ers_type` VALUES (3, '手机', 2);
-INSERT INTO `ers_type` VALUES (4, '平板', 2);
-INSERT INTO `ers_type` VALUES (5, '电脑', 2);
-INSERT INTO `ers_type` VALUES (6, '小米', 3);
-INSERT INTO `ers_type` VALUES (7, '魅族', 3);
-INSERT INTO `ers_type` VALUES (8, '一加', 3);
-INSERT INTO `ers_type` VALUES (9, '华为', 3);
-INSERT INTO `ers_type` VALUES (10, '惠普', 5);
-INSERT INTO `ers_type` VALUES (11, '戴尔', 5);
-INSERT INTO `ers_type` VALUES (12, '联想', 5);
-INSERT INTO `ers_type` VALUES (13, 'Apple', 4);
+INSERT INTO `ers_type` VALUES (1, '家电维修', 0, 1, 2);
+INSERT INTO `ers_type` VALUES (2, '数码维修', 0, 1, 1);
+INSERT INTO `ers_type` VALUES (3, '手机', 2, 1, 1);
+INSERT INTO `ers_type` VALUES (4, '平板', 2, 1, 3);
+INSERT INTO `ers_type` VALUES (5, '电脑', 2, 1, 2);
+INSERT INTO `ers_type` VALUES (6, '小米', 3, 1, 2);
+INSERT INTO `ers_type` VALUES (7, '魅族', 3, 1, 3);
+INSERT INTO `ers_type` VALUES (8, '一加', 3, 1, 1);
+INSERT INTO `ers_type` VALUES (9, '华为', 3, 0, 4);
+INSERT INTO `ers_type` VALUES (10, '惠普', 5, 1, 1);
+INSERT INTO `ers_type` VALUES (11, '戴尔', 5, 1, 2);
+INSERT INTO `ers_type` VALUES (12, '联想', 5, 0, 3);
+INSERT INTO `ers_type` VALUES (13, 'Apple', 4, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -218,37 +220,82 @@ CREATE TABLE `ers_users` (
 -- Records of ers_users
 -- ----------------------------
 BEGIN;
-INSERT INTO `ers_users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@ers.com', 11111111111, NULL, NULL, NULL, 1514874262, 1514874681, 1, 0);
-INSERT INTO `ers_users` VALUES (2, 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'user1@qq.com', 11111111111, NULL, NULL, '', 1514874262, 1514874653, 1, 0);
-INSERT INTO `ers_users` VALUES (3, 'business1', 'ab36fdc41550db15fd4a47f2e44f0076', 'business1@qq.com', 11111111111, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 1);
+INSERT INTO `ers_users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@ers.com', 11111111111, NULL, NULL, '安徽信息工程学院', 1514874262, 1514874681, 1, 0);
+INSERT INTO `ers_users` VALUES (2, 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'user1@qq.com', 11111111111, NULL, NULL, '安徽信息工程学院', 1514874262, 1514874653, 1, 0);
+INSERT INTO `ers_users` VALUES (3, 'business1', 'ab36fdc41550db15fd4a47f2e44f0076', 'business1@qq.com', 234523453245, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 1);
 COMMIT;
+
+-- ----------------------------
+-- Function structure for getChildList
+-- ----------------------------
+DROP FUNCTION IF EXISTS `getChildList`;
+delimiter ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `getChildList`( rootId INT ) RETURNS varchar(1000) CHARSET utf8
+BEGIN
+DECLARE
+	sTemp VARCHAR ( 4000 );
+DECLARE
+	sTempChd VARCHAR ( 4000 );
+
+SET sTemp = '$';
+
+SET sTempChd = cast( rootId AS CHAR );
+WHILE
+		sTempChd IS NOT NULL DO
+		
+		SET sTemp = CONCAT( sTemp, ',', sTempChd );
+	SELECT
+		group_concat( id ) INTO sTempChd 
+	FROM
+		ers_type 
+	WHERE
+		FIND_IN_SET( pid, sTempChd ) > 0;
+	
+END WHILE;
+RETURN sTemp;
+
+END;
+;;
+delimiter ;
 
 -- ----------------------------
 -- Function structure for getParList
 -- ----------------------------
 DROP FUNCTION IF EXISTS `getParList`;
 delimiter ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `getParList`(rootId INT) RETURNS varchar(1000) CHARSET utf8
+CREATE DEFINER=`root`@`localhost` FUNCTION `getParList`( childId INT ) RETURNS varchar(1000) CHARSET utf8
 BEGIN
-    DECLARE sTemp VARCHAR(1000);
-    DECLARE sTempPar VARCHAR(1000); 
-    SET sTemp = ''; 
-    SET sTempPar =rootId; 
+DECLARE
+	sTemp VARCHAR ( 1000 );
+DECLARE
+	sTempPar VARCHAR ( 1000 );
 
-    #循环递归
-    WHILE sTempPar is not null DO 
-        #判断是否是第一个，不加的话第一个会为空
-        IF sTemp != '' THEN
-            SET sTemp = concat(sTemp,',',sTempPar);
-        ELSE
-            SET sTemp = sTempPar;
-        END IF;
+SET sTemp = '';
 
-        SET sTemp = concat(sTemp,',',sTempPar); 
-        SELECT group_concat(pid) INTO sTempPar FROM ers_type where pid<>id and FIND_IN_SET(id,sTempPar)>0; 
-    END WHILE; 
+SET sTempPar = childId;#循环递归
+WHILE
+	sTempPar IS NOT NULL DO#判断是否是第一个，不加的话第一个会为空
+IF
+sTemp != '' THEN
 
-RETURN sTemp; 
+SET sTemp = concat( sTemp, ',', sTempPar );
+ELSE 
+	SET sTemp = sTempPar;
+
+END IF;
+
+SET sTemp = concat( sTemp, ',', sTempPar );
+SELECT
+	group_concat( pid ) INTO sTempPar 
+FROM
+	ers_type 
+WHERE
+	pid <> id 
+	AND FIND_IN_SET( id, sTempPar ) > 0;
+
+END WHILE;
+RETURN sTemp;
+
 END;
 ;;
 delimiter ;

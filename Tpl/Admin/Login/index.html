@@ -89,6 +89,8 @@
 <script src="__COMPONENTS__/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="__PLUGINS__/iCheck/icheck.min.js"></script>
+<!-- layer -->
+<script src="__COMPONENTS__/layer/layer.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
@@ -114,6 +116,25 @@
             }
         );
     }
+
+//    function login(url) {
+//        $.ajax({
+//            url: url,
+//            type: 'post',
+//            data: $('form').serializeArray(),
+//            dataType: 'json',
+//            success: function (response) {
+//                layer.msg(response.message, {
+//                    icon: response.code,
+//                    time: 600
+//                }, function () {
+//                    if (response.url) {
+//                        window.location.href = response.url;
+//                    }
+//                });
+//            }
+//        });
+//    }
 </script>
 </body>
 </html>

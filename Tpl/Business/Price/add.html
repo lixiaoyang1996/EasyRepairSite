@@ -1,0 +1,48 @@
+<div class="content-wrapper">
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="container">
+                <section class="content-header" style="margin-top: 50px;">
+                    <h1>
+                        价格管理
+                        <small>为了你们体验到最优惠的价格，我们在不断完善！2018</small>
+                    </h1>
+                </section>
+
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="box box-primary">
+
+                        <form role="form">
+                            <div class="box-body">
+                                <div class="form-group" style="width: 200px">
+                                    <label><font style="vertical-align: inherit;">维修类别</font></label>
+                                    <select class="form-control" name="tid">
+                                        <volist name="t" id="vo">
+                                            <option value="{$vo.id}">{$vo.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><font style="vertical-align: inherit;">维修品牌</font></label>
+                                        <input type="text" class="form-control" id="brand" name="brand" placeholder="请输入维修品牌">                                    </lable>
+                                </div>
+                                <div class="form-group">
+                                    <label><font style="vertical-align: inherit;">维修价格</font></label>
+                                    <input type="text" class="form-control" id="price" name="price" placeholder="请输入价格">                                    </lable>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="button" onclick="save('{:U('Business/Price/add')}')"
+                                        class="btn btn-primary">提交
+                                </button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__BUSINESS__/js/ajax.js"></script>

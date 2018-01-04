@@ -54,10 +54,10 @@
                                 <if condition="$rule.status eq 0"><span class="label label-warning">禁用</span></if>
                             </td>
                             <td><a href="{:U('Admin/Permission/edit',array('id'=>$rule['id']))}"><span
-                                    class="glyphicon glyphicon-pencil"></span>修改</a>&nbsp;&nbsp;<a
-                                    href="javascript:void(0)"
-                                    onclick="del({$rule.id},'{:U('Admin/Permission/del')}')"><span
-                                    class="glyphicon glyphicon-trash"></span>删除</a></td>
+                                    class="glyphicon glyphicon-pencil"></span>修改</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)"
+                                   onclick="del({$rule.id},'{:U('Admin/Permission/del')}')"><span
+                                        class="glyphicon glyphicon-trash"></span>删除</a></td>
                         </tr>
                     </foreach>
                     </tbody>

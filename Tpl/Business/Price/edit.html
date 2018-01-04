@@ -1,0 +1,47 @@
+<div class="content-wrapper">
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="container">
+                <section class="content-header" style="margin-top: 50px;">
+                    <h1>
+                        价格管理
+                        <small>为了你们体验到最优惠的价格，我们在不断完善！2018</small>
+                    </h1>
+                </section>
+
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="box box-primary">
+
+                        <form role="form">
+                            <div class="box-body">
+                                <input type="hidden" name="id" value="{$n.id}">
+                                <div class="form-group" style="width: 200px">
+                                    <label><font style="vertical-align: inherit;">维修类别</font></label>
+                                    <input type="text" class="form-control" id="type" name="type" placeholder="请输入维修品牌" value="{$result.type}" readonly="readonly">
+                                </div>
+                                <div class="form-group" style="width: 200px">
+                                    <label><font style="vertical-align: inherit;">维修品牌</font></label>
+                                    <input type="text" class="form-control" id="brand" name="brand" value="{$result.brand}" placeholder="请输入维修品牌" readonly="readonly">                                    </lable>
+                                </div>
+                                <div class="form-group" style="width: 200px">
+                                    <label><font style="vertical-align: inherit;">维修价格</font></label>
+                                    <input type="text" class="form-control" id="price" name="price" value="{$n.price}">                                    </lable>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <a type="button" onclick="submit('{:U('Business/Price/doedit')}')"
+                                   class="btn btn-primary pull-left" style="width: 100px">修改
+                                </a>
+                                <a type="button" onclick="history.go(-1)" class="btn btn-default pull-right">返回
+                                </a>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__BUSINESS__/js/ajax.js"></script>

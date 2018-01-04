@@ -1,5 +1,92 @@
+<link rel="stylesheet" href="__COMPONENTS__/layer/css/layui.css">
+<link rel="stylesheet" href="__ADMINLTE__/css/upload.css">
 <div class="content-wrapper">
     <div class="container">
-        <p>这是个人中心</p>
+        <section class="content-header" style="margin-top: 50px;">
+            <h1>
+                个人中心
+                <small>Information gets richer ，可以让我更清楚了解自己！2018</small>
+            </h1>
+        </section>
+        <section class="content container-fluid">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <form>
+                        <input type="hidden" name="id" value="{$u.id}">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Your Name" style="width: 450px"
+                                   id="name" name="name" value="{$u.username}">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                            </span>
+                            <input type="email" class="form-control" placeholder="Your Address" style="width: 450px"
+                                   id="address" name="address" value="{$u.address}">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                            </span>
+                            <input type="email" class="form-control" placeholder="Your Email" style="width: 450px"
+                                   id="email" name="email" value="{$u.email}">
+                        </div>
+                        <br>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-phone-alt"></i>
+                            </span>
+                            <input type="email" class="form-control" placeholder="Your Teplphone" style="width: 450px"
+                                   id="phone" name="phone" value="{$u.phone}">
+                        </div>
+                        <div class="input-group">
+                            <div class="radio">
+                                <span><b><font style="font-family: KaiTi">性别:</font></b></span>
+                                <label>
+                                    <input type="radio" name="sex" value="0"
+                                    <if condition="$n.sex eq 1">checked</if>
+                                    >
+                                    男
+                                </label>&nbsp;&nbsp;
+                                <label>
+                                    <input type="radio" name="sex" value="1"
+                                    <if condition="$n.check eq 0">checked</if>
+                                    >
+                                    女
+                                </label>&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 8px;">
+                            <label><span><b><font style="font-family: KaiTi">个人介绍:</font></b></span></label>
+                            <textarea class="form-control" rows="3"
+                                      style="width: 490px;height:250px;resize:none"
+                                      id="taContent" maxlength="50"
+                                      onchange="this.value=this.value.substring(0, 50)"
+                                      onkeydown="this.value=this.value.substring(0, 50)"
+                                      onkeyup="this.value=this.value.substring(0, 50)">
+                            </textarea>
+                        </div>
+
+                        <div class="box-footer">
+                            <a type="button" onclick="submit('{:U('Business/BusinessUserInfo/doedit')}')"
+                                    class="btn btn-primary pull-left" style="width: 100px">修改
+                            </a>
+                            <a type="button" onclick="history.go(-1)" class="btn btn-default pull-right">返回
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
+<script src="__BUSINESS__/js/ajax.js"></script>

@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+    <div class="container">
+        <div class="box" style="margin-top: 50px">
+            <div class="box-header">
+                <a href="{:U('Business/Price/add')}" class="btn btn-sm btn-info btn-flat">
+                    <font style="vertical-align: inherit;">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        放置新服务价格
+                    </font>
+                </a>
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="">
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                                       aria-describedby="example2_info">
+                                    <thead>
+                                    <tr style="color:darkolivegreen">
+                                        <th style="text-align: center"><font
+                                                style="vertical-align: inherit;">ID</font></font></th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;">维修类别</font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;">维修选项</font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;">维修品牌</font>
+                                        </th>
+                                         <th style="text-align: center"><font style="vertical-align: inherit;">维修价格</font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">操作1</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">操作2</font></font>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="p" item="price">
+                                    <tr role="row" style="text-align: center">
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit">{$price.id}</font></td>
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit;">{$price.Type}</font></td>
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit;">{$price.type}</font></td>
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit;">{$price.brand}</font></td>
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit;">{$price.price}</font></td>
+                                        <td><a href="{:U('Business/Price/edit',array('id'=>$price[id]))}" class="btn btn-sm btn-info btn-flat">
+                                            <font style="vertical-align: inherit;"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</font></a>
+                                        </td>&nbsp;
+                                        <td><a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat"
+                                                onclick="del({$price[id]},'{:U('Business/Price/delete')}')"><i
+                                                class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                                        </td>
+                                    </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__BUSINESS__/js/ajax.js"></script>

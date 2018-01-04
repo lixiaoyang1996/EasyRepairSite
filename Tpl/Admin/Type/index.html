@@ -1,0 +1,136 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            维修类别管理
+            <small>对网站所有维修类别进行管理</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i>控制面板</a></li>
+            <li><a href="{:U('Admin/Type/index')}">维修类别管理</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+          | Your Page Content Here |
+          -------------------------->
+        <div class="box">
+            <div class="box-header">
+                <a href="{:U('Admin/Type/add')}" class="btn btn-sm btn-primary"><span
+                        class="glyphicon glyphicon-plus"></span> 新建维修类别
+                </a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>排序</th>
+                        <th>维修类别</th>
+                        <th>分类级别</th>
+                        <th>显示状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="ptypes" item="ptype">
+                        <tr>
+                            <td>{$ptype.sort}</td>
+                            <td>{$ptype.name}</td>
+                            <td>一级分类</td>
+                            <td>
+                                <if condition="$ptype.show eq 1"><span class="label label-success"><i
+                                        class="glyphicon glyphicon-eye-open"></i> 显示</span></if>
+                                <if condition="$ptype.show eq 0"><span class="label label-warning"><i
+                                        class="glyphicon glyphicon-eye-close"></i> 隐藏</span></if>
+                            </td>
+                            <td>
+                                <a href="{:U('Admin/Type/edit',array('id'=>$ptype['id']))}">
+                                    <span class="glyphicon glyphicon-pencil"></span> 修改</a>&nbsp;&nbsp;
+                                <a href="javascript:void(0)" onclick="del({$ptype.id},'{:U('Admin/Type/del')}')">
+                                    <span class="glyphicon glyphicon-trash"></span> 删除</a>&nbsp;&nbsp;
+                                <a href="{:U('Admin/Type/cadd',array('id'=>$ptype['id']))}">
+                                    <span class="glyphicon glyphicon-plus"></span> 添加子分类</a>
+                            </td>
+                        </tr>
+                        <foreach name="ctypes" item="ctype">
+                            <if condition="$ctype['pid'] eq $ptype['id']">
+                                <tr>
+                                    <td>{$ptype.sort}---{$ctype.sort}</td>
+                                    <td>{$ptype.name}---{$ctype.name}</td>
+                                    <td>二级分类</td>
+                                    <td>
+                                        <if condition="$ctype.show eq 1"><span class="label label-success"><i
+                                                class="glyphicon glyphicon-eye-open"></i> 显示</span></if>
+                                        <if condition="$ctype.show eq 0"><span class="label label-warning"><i
+                                                class="glyphicon glyphicon-eye-close"></i> 隐藏</span></if>
+                                    </td>
+                                    <td>
+                                        <a href="{:U('Admin/Type/edit',array('id'=>$ctype['id']))}">
+                                            <span class="glyphicon glyphicon-pencil"></span> 修改</a>&nbsp;&nbsp;
+                                        <a href="javascript:void(0)"
+                                           onclick="del({$ctype.id},'{:U('Admin/Type/del')}')">
+                                            <span class="glyphicon glyphicon-trash"></span> 删除</a>&nbsp;&nbsp;
+                                        <a href="{:U('Admin/Type/cadd',array('id'=>$ctype['id']))}">
+                                            <span class="glyphicon glyphicon-plus"></span> 添加子分类</a>
+                                    </td>
+                                </tr>
+                                <foreach name="ctypes" item="cctype">
+                                    <if condition="$cctype['pid'] eq $ctype['id']">
+                                        <tr>
+                                            <td>{$ptype.sort}---{$ctype.sort}---{$cctype.sort}</td>
+                                            <td>{$ptype.name}---{$ctype.name}---{$cctype.name}</td>
+                                            <td>三级分类</td>
+                                            <td>
+                                                <if condition="$cctype.show eq 1"><span class="label label-success"><i
+                                                        class="glyphicon glyphicon-eye-open"></i> 显示</span></if>
+                                                <if condition="$cctype.show eq 0"><span class="label label-warning"><i
+                                                        class="glyphicon glyphicon-eye-close"></i> 隐藏</span></if>
+                                            </td>
+                                            <td>
+                                                <a href="{:U('Admin/Type/edit',array('id'=>$cctype['id']))}">
+                                                    <span class="glyphicon glyphicon-pencil"></span> 修改</a>&nbsp;&nbsp;
+                                                <a href="javascript:void(0)"
+                                                   onclick="del({$cctype.id},'{:U('Admin/Type/del')}')">
+                                                    <span class="glyphicon glyphicon-trash"></span> 删除</a>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                            </if>
+                        </foreach>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    function del(id, url) {
+        layer.confirm('确定删除本条数据？', {title: '提示'}, function (index) {
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: {id: id},
+                dataType: 'json',
+                success: function (response) {
+                    layer.msg(response.message, {
+                        icon: response.code,
+                        time: 600
+                    }, function () {
+                        if (response.url) {
+                            window.location.href = response.url;
+                        }
+                    });
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>

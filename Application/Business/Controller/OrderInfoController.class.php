@@ -120,7 +120,7 @@ class OrderInfoController extends Controller\BusinessBaseController
             $data['finish_time'] = time();
         }
         $result = $order->save($data);
-//        var_dump($result);
+        var_dump($result);
         if ($result >= 0) {
             return response(1, '修改成功！', null, U('Business/OrderInfo/index'));
         } else {

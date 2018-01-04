@@ -42,7 +42,7 @@ class PriceController extends Controller\BusinessBaseController
     {
         $type = M("type");
         $t = $type->where("pid=2")->select();
-        $this->assign('t',$t);
+        $this->assign('t', $t);
         $this->display();
     }
 
@@ -71,8 +71,8 @@ class PriceController extends Controller\BusinessBaseController
         }
         $result = array_reduce($p, 'array_merge', array());
 //        var_dump($result);
-        $this->assign('result',$result);
-        $this->assign('n',$n);
+        $this->assign('result', $result);
+        $this->assign('n', $n);
         $this->display();
     }
 
@@ -81,7 +81,6 @@ class PriceController extends Controller\BusinessBaseController
         $price = M('price');
         $data = $price->create();
         $result = $price->save($data);
-//        var_dump($result);
         if ($result >= 0) {
             return response(1, '修改成功！', null, U('Business/Price/index'));
         } else {
@@ -91,12 +90,12 @@ class PriceController extends Controller\BusinessBaseController
 
     public function delete($id)
     {
-        $price = D("price");
+        $price = M("price");
         $result = $price->delete($id);
         if ($result > 0) {
-            return show(1, '删除成功!',null, U('Business/Price/index'));
+            return response(1, '删除成功!', null, U('Business/Price/index'));
         } else {
-            return show(2, '删除失败');
+            return response(2, '删除失败');
         }
     }
 }

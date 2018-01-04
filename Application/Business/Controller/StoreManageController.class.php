@@ -35,7 +35,7 @@ class StoreManageController extends Controller\BusinessBaseController
 
 
         $result = $shop->save($data);
-          var_dump($result);
+//          var_dump($result);
         if ($result >= 0) {
             return response(1, '修改成功！', null, U('Business/StoreManage/index'));
         } else {

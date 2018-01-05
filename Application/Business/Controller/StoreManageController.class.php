@@ -23,7 +23,7 @@ class StoreManageController extends Controller\BusinessBaseController
         $user = M("users");
         $sid = $user->where("id=$result")->getField('sid');
         $n = $shop->where("id = $sid")->find();
-//        var_dump($n);
+
         $this->assign('n', $n);
         $this->display();
     }
@@ -32,10 +32,8 @@ class StoreManageController extends Controller\BusinessBaseController
     {
         $shop = M("shop");
         $data = $shop->create();
-
-
         $result = $shop->save($data);
-//          var_dump($result);
+        //var_dump($result);
         if ($result >= 0) {
             return response(1, '修改成功！', null, U('Business/StoreManage/index'));
         } else {

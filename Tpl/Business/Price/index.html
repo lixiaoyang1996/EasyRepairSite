@@ -32,8 +32,8 @@
                                        aria-describedby="example2_info">
                                     <thead>
                                     <tr style="color:darkolivegreen">
-                                        <th style="text-align: center"><font
-                                                style="vertical-align: inherit;">ID</font></font></th>
+                                        <!--<th style="text-align: center"><font-->
+                                                <!--style="vertical-align: inherit;">ID</font></font></th>-->
                                         <th style="text-align: center"><font style="vertical-align: inherit;">维修类别</font>
                                         </th>
                                         <th style="text-align: center"><font style="vertical-align: inherit;">维修选项</font>
@@ -41,6 +41,8 @@
                                         <th style="text-align: center"><font style="vertical-align: inherit;">维修品牌</font>
                                         </th>
                                          <th style="text-align: center"><font style="vertical-align: inherit;">维修价格</font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;">维修状态</font>
                                         </th>
                                         <th style="text-align: center"><font style="vertical-align: inherit;"><font
                                                 style="vertical-align: inherit;">操作1</font></font>
@@ -53,14 +55,16 @@
                                     <tbody>
                                     <foreach name="p" item="price">
                                     <tr role="row" style="text-align: center">
-                                        <td style="padding-top: 15px;"><font
-                                                style="vertical-align: inherit">{$price.id}</font></td>
+                                        <!--<td style="padding-top: 15px;"><font-->
+                                                <!--style="vertical-align: inherit">{$price.id}</font></td>-->
                                         <td style="padding-top: 15px;"><font
                                                 style="vertical-align: inherit;">{$price.Type}</font></td>
                                         <td style="padding-top: 15px;"><font
                                                 style="vertical-align: inherit;">{$price.type}</font></td>
                                         <td style="padding-top: 15px;"><font
                                                 style="vertical-align: inherit;">{$price.brand}</font></td>
+                                        <td style="padding-top: 15px;"><font
+                                                style="vertical-align: inherit;">{$price.price}</font></td>
                                         <td style="padding-top: 15px;"><font
                                                 style="vertical-align: inherit;">{$price.price}</font></td>
                                         <td><a href="{:U('Business/Price/edit',array('id'=>$price[id]))}" class="btn btn-sm btn-info btn-flat">

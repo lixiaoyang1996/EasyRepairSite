@@ -18,7 +18,6 @@ class OrderInfoController extends Controller\BusinessBaseController
         $result = $_SESSION['userId'];
         $user = M("users");
         $sid = $user->where("id=$result")->getField('sid');
-//       var_dump($sid);
 
         $model = new Model();
         $sql = "
@@ -47,7 +46,7 @@ class OrderInfoController extends Controller\BusinessBaseController
         AND o.status >=2
         ";
         $orders = $model->query($sql);
-//        var_dump($orders);
+
         for ($i = 0; $i < count($orders); $i++) {
             $model = M('users');
             $businessphone = $model->where(array('sid' => $orders[$i] ['sid']))->getField('phone');
@@ -58,7 +57,12 @@ class OrderInfoController extends Controller\BusinessBaseController
             $type = $res[2]['type'] . $res[1]['type'];
             $orders[$i] ['type'] = $type;
         }
-//        var_dump($orders);
+
+        $count = count($orders);
+        $Page = new\Think\Page($count, 1);
+        $show = $Page->show();
+        $this->assign('page', $show);
+
         $this->assign('orders', $orders);
         $this->display();
     }

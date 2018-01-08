@@ -1,120 +1,107 @@
 <link rel="stylesheet" href="__COMPONENTS__/wangEditor/css/wangEditor.min.css">
 <script src="__COMPONENTS__/jquery/dist/jquery.min.js"></script>
 <script src="__COMPONENTS__/wangEditor/js/wangEditor.min.js"></script>
-        <div class="content-wrapper">
-            <div class="container">
-                <section class="content-header" style="margin-top: 50px;">
-                    <h1>
-                        店铺管理
-                        <small>为了你们体验到最有优质的服务，我们在不断完善！2018</small>
-                    </h1>
-                </section>
+<div class="content-wrapper">
+    <div class="container">
+        <section class="content-header" style="margin-top: 50px;">
+            <h1>
+                店铺管理
+                <small>为了你们体验到最有优质的服务，我们在不断完善！2018</small>
+            </h1>
+        </section>
 
-                <!-- Main content -->
-                <section class="content container-fluid">
-                    <div class="box box-primary">
-                        <!-- form start -->
-                        <form role="form">
-                            <input type="hidden" name="id" value="{$n.id}">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="name">店铺名称</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{$n.name}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="score">店铺评分</label>
-                                    <input type="number" class="form-control" id="score" name="score"
-                                           value="{$n.score}" readonly="readonly">
-                                </div>
-                                <div class="form-group">
-                                    <label for="orders">店铺单数</label>
-                                    <input type="number" class="form-control" id="orders" name="orders"
-                                           value="{$n.orders}" readonly="readonly">
-                                </div>
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="box box-primary">
+                <!-- form start -->
+                <section class="invoice">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="page-header pull-left">
+                                <i class="fa fa-globe"></i>
+                                <i>YourEstabLishment</i>
+                            </h2>
+                            <if condition="$n.id eq ''">
+                                <a href="{:U('Business/StoreManage/add')}"
+                                   class="btn btn-primary pull-right">添加店铺
+                                </a>
+                            </if>
 
-                                <div class="form-group" style="width: 200px">
-                                    <label><font style="vertical-align: inherit;">店铺类型</font></label>
-                                    <select class="form-control" name="tid">
-                                        <volist name="t" id="vo">
-                                            <option
-                                            <if condition="$n[tid] eq $vo[id]">selected="selected"</if>
-                                            value="{$vo.id}">{$vo.name}</option>
-                                        </volist>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>服务类型</label><br>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="way" value="0"
-                                        <if condition="$n['way'] eq 0">checked</if>
-                                        >到店服务
-                                    </label>
-                                    <lable class="radio-inline">
-                                        <input type="radio" name="way" value="1"
-                                        <if condition="$n['way'] eq 1">checked</if>
-                                        >上门服务
-                                    </lable>
-                                    <lable class="radio-inline">
-                                        <input type="radio" name="way" value="2"
-                                        <if condition="$n['way'] eq 2">checked</if>
-                                        >到店服务+上门服务
-                                    </lable>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="textarea">店铺详情</label>
-                                    <textarea id="textarea" style="height:400px;width: 100%;" name="detail">
-                                        {$n.detail}
-                                    </textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label><font style="vertical-align: inherit;">店铺状态</font></label><br>
-
-
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <div class="col-sm-6 invoice-col">
+                            <if condition="$n.id neq ''">
+                                <font style="font-size: 1.4em; line-height:35px;color: red">店铺Info<br></font>
+                            </if>
+                            <address>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height:25px;font-family:'楷体'"><b>Name</b>:</font>
+                                    <font style="font-size: 1.1em;line-height: 25px;">{$n.name}<br></font>
+                                </if>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px;font-family:'楷体' "><b>Address</b>:</font>
+                                    <font style="font-size: 1.1em;line-height: 25px;">{$u.address}<br></font>
+                                </if>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px; font-family:'楷体' "><b>Email</b>:</font>
+                                    <font style="font-size: 1.1em;line-height: 25px;">{$u.email}<br></font>
+                                </if>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px;font-family:'楷体' "><b>Phone</b>:</font>
+                                    <font style="font-size: 1.1em;line-height: 25px;">{$u.phone}<br></font>
+                                </if>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px;font-family:'楷体' "><b>Create_time</b>:</font>
+                                    <font style="font-size: 1.1em;line-height: 25px;">{$n.create_time|date='Y/m/d',###}<br></font>
+                                </if>
+                            </address>
+                        </div>
+                        <div class="col-sm-6 invoice-col">
+                            <if condition="$n.id neq ''">
+                                <font style="font-size: 1.4em; line-height:35px;color: chartreuse">店铺STatus<br></font>
+                            </if>
+                            <address>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px;font-family:'楷体' ">店铺状态:</font>
+                                    <if condition="$n.check eq 0">
+                                        <span class="label label-warning">待审核</span><br><br>
+                                    </if>
                                     <if condition="$n.check eq 1">
-                                        <button class="btn btn-danger" style="width: 200px" disabled>
-                                            未通过
-                                        </button>
+                                        <span class="label label-success">已通过</span><br><br>
                                     </if>
                                     <if condition="$n.check eq 2">
-                                        <button class="btn btn-default" style="width: 200px" disabled>
-                                            待审核
-                                        </button>
+                                        <span class="label label-danger">未通过</span><br><br>
                                     </if>
-                                    <if condition="$n.check eq 3">
-                                        <button class="btn btn-primary" style="width: 200px" disabled>
-                                            已通过
-                                        </button>
-                                    </if>
-                                </div>
+                                </if>
 
-                                <div class="form-group">
-                                    <label><font style="vertical-align: inherit;">运营状态</font></label><br>
+                                <if condition="$n.id neq ''">
+                                    <font style="font-size: 1.1em;line-height: 25px;font-family:'楷体' ">营业状态:</font>
                                     <if condition="$n.status eq 0">
-                                        <button class="btn btn-warning" style="width: 200px" disabled>
-                                            停业ing
-                                        </button>
+                                        <span class="label label-danger">停业中</span><br><br>
                                     </if>
                                     <if condition="$n.status eq 1">
-                                        <button class="btn btn-primary" style="width: 200px" disabled>
-                                            营业ing
-                                        </button>
+                                        <span class="label label-primary">营业中</span><br>
                                     </if>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
+                                </if>
 
-                            <div class="box-footer">
-                                <a type="button" onclick="submit('{:U('Business/StoreManage/doedit')}')"
-                                   class="btn btn-primary pull-right" style="width: 100px">更新
-                                </a>
-                            </div>
-                        </form>
-                        <!-- /.box-body -->
+                                <if condition="$n.id neq ''">
+                                    <a href="{:U('Business/StoreManage/edit')}"
+                                       class="btn btn-primary pull-right" style="width: 150px">查看店铺详细信息
+                                    </a>
+                                </if>
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+
                     </div>
                 </section>
+            </div>
+        </section>
     </div>
 </div>
 <script src="__BUSINESS__/js/ajax.js"></script>

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="__COMPONENTS__/layer/css/layui.css">
-<link rel="stylesheet" href="__ADMINLTE__/css/upload.css">
+<!--<link rel="stylesheet" href="__COMPONENTS__/jquery/dist/jquery.min.js">-->
+<link rel="stylesheet" href="__BUSINESS__/css/upload.css">
 <div class="content-wrapper">
     <div class="container">
         <section class="content-header" style="margin-top: 50px;">
@@ -17,7 +18,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </span>
-                            <input type="text" class="form-control" placeholder="Your Name" style="width: 450px"
+                            <input type="text" class="form-control" placeholder="Your Name"
                                    id="name" name="name" value="{$u.username}">
                         </div>
                         <br>
@@ -26,7 +27,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-map-marker"></i>
                             </span>
-                            <input type="email" class="form-control" placeholder="Your Address" style="width: 450px"
+                            <input type="email" class="form-control" placeholder="Your Address"
                                    id="address" name="address" value="{$u.address}">
                         </div>
                         <br>
@@ -35,7 +36,7 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-envelope"></i>
                             </span>
-                            <input type="email" class="form-control" placeholder="Your Email" style="width: 450px"
+                            <input type="email" class="form-control" placeholder="Your Email"
                                    id="email" name="email" value="{$u.email}">
                         </div>
                         <br>
@@ -44,9 +45,24 @@
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-phone-alt"></i>
                             </span>
-                            <input type="email" class="form-control" placeholder="Your Teplphone" style="width: 450px"
+                            <input type="email" class="form-control" placeholder="Your Teplphone"
                                    id="phone" name="phone" value="{$u.phone}">
                         </div>
+                        <br>
+                        <div class="input-group">
+                            <span><b><font style="font-family: KaiTi">头像:</font></b></span>
+
+                            <div class="file-box" style="margin-left: 40px;">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <input class="file-btn" type="button" value="选择图片">
+                                <input class="file-txt" type="text" autocomplete="off" name="textfield" id="textfield">
+                                <if condition="$u[avatar] neq ''"><img src="__ROOT__/Upload{$u.avatar}" height="50">
+                                </if>
+                                <input class="file-file" type="file" name="avatar" id="avatar" size="28"
+                                       onchange="document.getElementById('textfield').value=this.value"/>
+                            </div>
+                        </div>
+                        <br>
                         <div class="input-group">
                             <div class="radio">
                                 <span><b><font style="font-family: KaiTi">性别:</font></b></span>
@@ -64,11 +80,10 @@
                                 </label>&nbsp;&nbsp;
                             </div>
                         </div>
-
                         <div class="form-group" style="margin-top: 8px;">
                             <label><span><b><font style="font-family: KaiTi">个人介绍:</font></b></span></label>
                             <textarea class="form-control" rows="3"
-                                      style="width: 490px;height:250px;resize:none"
+                                      style="width: 100%;height:250px;resize:none"
                                       id="taContent" maxlength="50"
                                       onchange="this.value=this.value.substring(0, 50)"
                                       onkeydown="this.value=this.value.substring(0, 50)"
@@ -78,7 +93,7 @@
 
                         <div class="box-footer">
                             <a type="button" onclick="submit('{:U('Business/BusinessUserInfo/doedit')}')"
-                                    class="btn btn-primary pull-left" style="width: 100px">修改
+                               class="btn btn-primary pull-left" style="width: 100px">修改
                             </a>
                             <a type="button" onclick="history.go(-1)" class="btn btn-default pull-right">返回
                             </a>

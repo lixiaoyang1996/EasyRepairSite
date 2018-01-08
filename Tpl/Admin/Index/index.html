@@ -17,7 +17,198 @@
         <!--------------------------
           | Your Page Content Here |
           -------------------------->
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>150</h3>
+
+                        <p>订单</p>
+                    </div>
+                    <div class="icon">
+                        <i class="iconfont">&#xe501;</i>
+                    </div>
+                    <a href="{:U('Admin/Order/index')}" class="small-box-footer">更多信息 <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>53</h3>
+
+                        <p>店铺</p>
+                    </div>
+                    <div class="icon">
+                        <i class="iconfont">&#xe54d;</i>
+                    </div>
+                    <a href="{:U('Admin/Shop/index')}" class="small-box-footer">更多信息 <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>44</h3>
+
+                        <p>用户</p>
+                    </div>
+                    <div class="icon">
+                        <i class="iconfont">&#xf0065;</i>
+                    </div>
+                    <a href="{:U('Admin/User/index')}" class="small-box-footer">更多信息 <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>65</h3>
+
+                        <p>商家</p>
+                    </div>
+                    <div class="icon">
+                        <i class="iconfont">&#xe751;</i>
+                    </div>
+                    <a href="{:U('Admin/Business/index')}" class="small-box-footer">更多信息 <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box box-primary" style="height: 630px;" id="chartPerson"
+                     personUrl="{:U('Admin/Index/getPerson')}">
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="box box-primary" style="height: 630px;" id="chartMoney"
+                     moneyUrl="{:U('Admin/Index/getMoney')}">
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script src="__COMPONENTS__/Highcharts/highcharts.js"></script>
+<script src="__COMPONENTS__/jquery/dist/jquery.min.js"></script>
+<script>
+    var chartPerson = Highcharts.chart('chartPerson', {
+        chart: {
+            type: 'line',
+            events: {
+                load: getPerson
+            }
+        },
+        title: {
+            text: '月注册人数'
+        },
+        subtitle: {
+            text: '数据来源: 易修网'
+        },
+        xAxis: {
+            categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+        },
+        yAxis: {
+            title: {
+                text: '人数'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true          // 开启数据标签
+                },
+                enableMouseTracking: true // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+            }
+        },
+        series: [{
+            name: '普通用户',
+            data: []
+        }, {
+            name: '商家',
+            data: []
+        }]
+    });
+    var chartMoney = Highcharts.chart('chartMoney', {
+        chart: {
+            type: 'column',
+            events: {
+                load: getMoney
+            }
+        },
+        title: {
+            text: '月平台交易额'
+        },
+        subtitle: {
+            text: '数据来源: 易修网'
+        },
+        xAxis: {
+            categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '万'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} 万</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '数码维修',
+            data: []
+        }, {
+            name: '家电维修',
+            data: []
+        }]
+    });
+
+    function getPerson(url) {
+        $.ajax({
+            url: $('[personUrl]').attr("personUrl"),
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+                chartPerson.series[0].setData(response.data[0]);
+                chartPerson.series[1].setData(response.data[1]);
+            }
+        });
+    }
+
+    function getMoney(url) {
+        $.ajax({
+            url: $('[moneyUrl]').attr("moneyUrl"),
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+                chartMoney.series[0].setData(response.data[0]);
+                chartMoney.series[1].setData(response.data[1]);
+            }
+        });
+    }
+</script>

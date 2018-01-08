@@ -1,9 +1,12 @@
+<link rel="stylesheet" href="__COMPONENTS__/wangEditor/css/wangEditor.min.css">
+<script src="__COMPONENTS__/jquery/dist/jquery.min.js"></script>
+<script src="__COMPONENTS__/wangEditor/js/wangEditor.min.js"></script>
 <div class="content-wrapper">
     <div class="container">
         <section class="content-header" style="margin-top: 50px;">
             <h1>
-                新建店铺
-                <small>增加一个很有前景还有梦想的店铺2018</small>
+                店铺管理
+                <small>为了你们体验到最有优质的服务，我们在不断完善！2018</small>
             </h1>
         </section>
 
@@ -12,33 +15,57 @@
             <div class="box box-primary">
                 <!-- form start -->
                 <form role="form">
+                    <input type="hidden" name="id">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="title">店铺名称</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">店铺评分</label>
+                            <label for="name">店铺名称</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
-                        <div class="form-group">
-                            <label for="name">缩略图</label>
-                            <!--<input type="button" class="form-control" id="pic" name="name">-->
-                            <input type="file" id="pic">
+
+                        <div class="form-group" style="width: 200px">
+                            <label><font style="vertical-align: inherit;">店铺类型</font></label>
+                            <select class="form-control" name="tid">
+                                <volist name="t" id="vo">
+                                    <option
+                                    <if condition="$n[tid] eq $vo[id]">selected="selected"</if>
+                                    value="{$vo.id}">{$vo.name}</option>
+                                </volist>
+                            </select>
                         </div>
+
                         <div class="form-group">
-                            <label for="name">缩略图</label>
-                            <!--<input type="button" class="form-control" id="pic" name="name">-->
-                            <input type="file" id="exampleInputFile">
+                            <label>服务类型</label><br>
+                            <label class="radio-inline">
+                                <input type="radio" name="way" value="0"
+                                <if condition="$n['way'] eq 0">checked</if>
+                                >到店服务
+                            </label>
+                            <lable class="radio-inline">
+                                <input type="radio" name="way" value="1"
+                                <if condition="$n['way'] eq 1">checked</if>
+                                >上门服务
+                            </lable>
+                            <lable class="radio-inline">
+                                <input type="radio" name="way" value="2"
+                                <if condition="$n['way'] eq 2">checked</if>
+                                >到店服务+上门服务
+                            </lable>
                         </div>
+
+                        <div class="form-group">
+                            <label for="textarea">店铺详情</label>
+                            <textarea id="textarea" style="height:400px;width: 100%;" name="detail" placeholder="请输入店铺详情">
+                                    </textarea>
+                        </div>
+
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
                         <a type="button" onclick="submit('{:U('Business/StoreManage/doadd')}')"
-                                class="btn btn-primary">保存
+                           class="btn btn-primary pull-left" style="width: 100px">添加店铺
                         </a>
-                        <a type="button" onclick="history.go(-1)" class="btn btn-default">返回
+                        <a type="button" onclick="history.go(-1)" class="btn btn-default pull-right">返回
                         </a>
                     </div>
                 </form>
@@ -47,3 +74,11 @@
         </section>
     </div>
 </div>
+<script src="__BUSINESS__/js/ajax.js"></script>
+
+<script type="text/javascript">
+    var editor = new wangEditor('textarea');
+    editor.config.uploadImgUrl = "{:U('Business/StoreManage/doUploadPic')}";
+    editor.create();
+</script>
+

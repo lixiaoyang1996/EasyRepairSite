@@ -12,7 +12,7 @@ use Think\Controller;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function index()
     {
         $this->display();
     }
@@ -32,11 +32,11 @@ class LoginController extends Controller
             $auth = new \Think\Auth();
             $result = $auth->check('Business/*', $_SESSION['userId']);
             if (!$result) {
-                response('0', '登陆失败！');
+               return response('2', '登陆失败！');
             }
-            response('1', '登陆成功！', array('id' => $result['id'], 'url' => U('Business/SalesVolume/index')));
+            return response(1, '登录成功！', null, U('Business/SalesVolume/index'));
         } else {
-            response('0', '登陆失败！');
+           return response('2', '登陆失败！');
         }
     }
 

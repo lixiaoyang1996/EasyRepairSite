@@ -1,0 +1,40 @@
+<div class="content-wrapper">
+    <div class="container">
+        <section class="content-header" style="margin-top: 50px;">
+            <h1>
+                修改密码
+                <small>为了你的账号更加安全！2018</small>
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+            <div class="box box-primary">
+                <form role="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="pwd1">原密码</label>
+                            <input type="password" class="form-control" name="pwd1" id="pwd1" class="form-control"
+                                   placeholder="请输入原密码">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd2">现密码</label>
+                            <input type="password" name="pwd2" id="pwd2" class="form-control" placeholder="请输入现密码">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd3">确认密码</label>
+                            <input type="password" name="pwd3" id="pwd3" class="form-control" placeholder="请确认密码">
+                        </div>
+                        <div class="form-group">
+                            <a onclick="submit('{:U('Business/UpdataPassword/saves')}')" class="btn btn-primary" style="width: 200px;">保存</a>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="__BUSINESS__/js/ajax.js"></script>

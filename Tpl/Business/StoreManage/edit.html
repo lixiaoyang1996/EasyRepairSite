@@ -1,9 +1,12 @@
+<link rel="stylesheet" href="__COMPONENTS__/wangEditor/css/wangEditor.min.css">
+<script src="__COMPONENTS__/jquery/dist/jquery.min.js"></script>
+<script src="__COMPONENTS__/wangEditor/js/wangEditor.min.js"></script>
 <div class="content-wrapper">
     <div class="container">
         <section class="content-header" style="margin-top: 50px;">
             <h1>
-                修改店铺
-                <small>为了你们的到来，Can感受到最优质的服务！2018</small>
+                店铺管理
+                <small>为了你们体验到最有优质的服务，我们在不断完善！2018</small>
             </h1>
         </section>
 
@@ -20,12 +23,15 @@
                         </div>
                         <div class="form-group">
                             <label for="score">店铺评分</label>
-                            <input type="number" class="form-control" id="score" name="score" value="{$n.score}">
+                            <input type="number" class="form-control" id="score" name="score"
+                                   value="{$n.score}" readonly="readonly">
                         </div>
                         <div class="form-group">
                             <label for="orders">店铺单数</label>
-                            <input type="number" class="form-control" id="orders" name="orders" value="{$n.orders}">
+                            <input type="number" class="form-control" id="orders" name="orders"
+                                   value="{$n.orders}" readonly="readonly">
                         </div>
+
                         <div class="form-group" style="width: 200px">
                             <label><font style="vertical-align: inherit;">店铺类型</font></label>
                             <select class="form-control" name="tid">
@@ -36,22 +42,75 @@
                                 </volist>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <label><font style="vertical-align: inherit;">店铺类型</font></label><br>
-                            <button class="btn btn-primary" style="width: 200px" disabled>
-                                <if condition="$n.check eq 1">未通过</if>
-                                <if condition="$n.check eq 2">待审核</if>
-                                <if condition="$n.check eq 3">已通过</if>
-                            </button>
+                            <label>服务类型</label><br>
+                            <label class="radio-inline">
+                                <input type="radio" name="way" value="0"
+                                <if condition="$n['way'] eq 0">checked</if>
+                                >到店服务
+                            </label>
+                            <lable class="radio-inline">
+                                <input type="radio" name="way" value="1"
+                                <if condition="$n['way'] eq 1">checked</if>
+                                >上门服务
+                            </lable>
+                            <lable class="radio-inline">
+                                <input type="radio" name="way" value="2"
+                                <if condition="$n['way'] eq 2">checked</if>
+                                >到店服务+上门服务
+                            </lable>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="textarea">店铺详情</label>
+                            <textarea id="textarea" style="height:400px;width: 100%;" name="detail">
+                                        {$n.detail}
+                                    </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label><font style="vertical-align: inherit;">店铺状态</font></label><br>
+
+
+                            <if condition="$n.check eq 0">
+                                <button class="btn btn-danger" style="width: 200px" disabled>
+                                    待审核
+                                </button>
+                            </if>
+                            <if condition="$n.check eq 1">
+                                <button class="btn btn-default" style="width: 200px" disabled>
+                                    已通过
+                                </button>
+                            </if>
+                            <if condition="$n.check eq 2">
+                                <button class="btn btn-primary" style="width: 200px" disabled>
+                                    未通过
+                                </button>
+                            </if>
+                        </div>
+
+                        <div class="form-group">
+                            <label><font style="vertical-align: inherit;">运营状态</font></label><br>
+                            <if condition="$n.status eq 0">
+                                <button class="btn btn-warning" style="width: 200px" disabled>
+                                    停业ing
+                                </button>
+                            </if>
+                            <if condition="$n.status eq 1">
+                                <button class="btn btn-primary" style="width: 200px" disabled>
+                                    营业ing
+                                </button>
+                            </if>
                         </div>
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
                         <a type="button" onclick="submit('{:U('Business/StoreManage/doedit')}')"
-                           class="btn btn-primary">修改
+                           class="btn btn-primary pull-left" style="width: 100px">更新
                         </a>
-                        <a type="button" onclick="history.go(-1)" class="btn btn-default">返回
+                        <a type="button" onclick="history.go(-1)" class="btn btn-default pull-right">返回
                         </a>
                     </div>
                 </form>
@@ -60,5 +119,10 @@
         </section>
     </div>
 </div>
-<!-- Tpl Public Ajax -->
-<script src="__ADMINLTE__/js/ajax.js"></script>
+<script src="__BUSINESS__/js/ajax.js"></script>
+
+<script type="text/javascript">
+    var editor = new wangEditor('textarea');
+    editor.config.uploadImgUrl = "{:U('Business/StoreManage/doUploadPic')}";
+    editor.create();
+</script>

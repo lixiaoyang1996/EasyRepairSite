@@ -2,9 +2,9 @@
 
 namespace Business\Controller;
 
-use Common\Controller;
+use Think\Controller;
 
-class IndexController extends Controller\BusinessBaseController
+class IndexController extends Controller
 {
     public function index()
     {

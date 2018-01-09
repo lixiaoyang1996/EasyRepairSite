@@ -56,16 +56,16 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="button" class="btn btn-primary btn-block btn-flat"
-                            onclick="login('{:U('Business/Login/checkLogin')}')">登录
-                    </button>
+                    <a class="btn btn-primary btn-block btn-flat"
+                            onclick="submit('{:U('Business/Login/checkLogin')}')">登录
+                    </a>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
 
         <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="{:U('Business/Register/index')}" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->
@@ -87,23 +87,8 @@
         });
     });
 </script>
-<script>
-    function login(url) {
-        var data = $('form').serializeArray();
-        $.ajax({
-                url: url,
-                type: 'post',
-                data: data,
-                dataType: 'json',
-                success: function (response) {
-                    alert(response.message);
-                    if (response.data.url) {
-                        window.location.href = response.data.url;
-                    }
-                }
-            }
-        );
-    }
-</script>
+<script src="__BUSINESS__/js/ajax.js"></script>
+<!-- layer -->
+<script src="__COMPONENTS__/layer/layer.js"></script>
 </body>
 </html>

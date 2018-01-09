@@ -18,7 +18,6 @@ class OrderInfoController extends Controller\BusinessBaseController
         $result = $_SESSION['userId'];
         $user = M("users");
         $sid = $user->where("id=$result")->getField('sid');
-//       var_dump($sid);
 
         $model = new Model();
         $sql = "
@@ -43,9 +42,11 @@ class OrderInfoController extends Controller\BusinessBaseController
         AND o.uid = u.id
         AND o.pid = p.id
         AND p.tid = t.id
+        AND o.sid = s.id
         AND o.status >=2
         ";
         $orders = $model->query($sql);
+
         for ($i = 0; $i < count($orders); $i++) {
             $model = M('users');
             $businessphone = $model->where(array('sid' => $orders[$i] ['sid']))->getField('phone');
@@ -56,7 +57,12 @@ class OrderInfoController extends Controller\BusinessBaseController
             $type = $res[2]['type'] . $res[1]['type'];
             $orders[$i] ['type'] = $type;
         }
-//        var_dump($orders);
+
+        $count = count($orders);
+        $Page = new\Think\Page($count, 1);
+        $show = $Page->show();
+        $this->assign('page', $show);
+
         $this->assign('orders', $orders);
         $this->display();
     }
@@ -106,7 +112,6 @@ class OrderInfoController extends Controller\BusinessBaseController
             $orders[$i] ['type'] = $type;
         }
         $result = array_reduce($orders, 'array_merge', array());
-//        var_dump($result);
         $this->assign('o', $o);
         $this->assign('result', $result);
         $this->display();
@@ -120,11 +125,10 @@ class OrderInfoController extends Controller\BusinessBaseController
             $data['finish_time'] = time();
         }
         $result = $order->save($data);
-        var_dump($result);
         if ($result >= 0) {
             return response(1, '修改成功！', null, U('Business/OrderInfo/index'));
         } else {
-            response(2, '修改失败！');
+            return response(2, '修改失败！');
         }
     }
 }

@@ -1,8 +1,22 @@
+<script src="__BUSINESS__/css/upload.css"></script>
 <div class="content-wrapper">
     <div class="container">
 
         <div class="box box-primary" style="margin-top: 50px">
+            <div class="box-header">
+                <div class="box-tools">
+                    <form action="{:U(Business/OrderInfo/index)}" method="post">
+                        <div class="input-group input-group-sm" style="width: 200px;margin-right: 28px;">
+                            <input type="text" name="kw" class="form-control " value="<?php echo I('kw');?>"
+                                   placeholder="请输入顾客名">
 
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <section class="content container-fluid">
                 <foreach name="orders" item="order">
                     <section class="invoice" style="border-top-color: lightgrey">
@@ -49,7 +63,12 @@
                                                 style="vertical-align: inherit;">用户名</font></font>
                                         </th>
                                         <th style="text-align: center"><font style="vertical-align: inherit;"><font
-                                                style="vertical-align: inherit;">用户地址</font></font>
+                                                style="vertical-align: inherit;">
+                                            用户地址</font></font>
+                                        </th>
+                                        <th style="text-align: center"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">
+                                            服务类型</font></font>
                                         </th>
                                         <th style="text-align: center"><font style="vertical-align: inherit;"><font
                                                 style="vertical-align: inherit;">维修价格</font></font>
@@ -64,6 +83,7 @@
                                         <td>{$order.id}</td>
                                         <td>{$order.username}</td>
                                         <td>{$order.useraddress}</td>
+                                        <td>{$order.type}</td>
                                         <td>{$order.price}</td>
                                         <td>
                                             <if condition="$order.status eq 0">
@@ -88,16 +108,19 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <a href="{:U('Business/OrderInfo/lookorder',array('id'=>$order['id']))}"
+                                   class="btn btn-sm btn-info btn-flat pull-left">
+                                    <font style="vertical-align: inherit;"><i
+                                            class="glyphicon glyphicon-check"></i>&nbsp;确认订单信息</font></a>
                             </div>
-                        </div>
-                        <div class="box-footer">
-                            <a href="{:U('Business/OrderInfo/lookorder',array('id'=>$order['id']))}"
-                               class="btn btn-sm btn-info btn-flat pull-left">
-                                <font style="vertical-align: inherit;"><i
-                                        class="glyphicon glyphicon-check"></i>&nbsp;确认订单信息</font></a>
                         </div>
                     </section>
                 </foreach>
+                <div class="box-footer">
+                    <!--<div class="pages">-->
+                        <!--{$page}-->
+                    <!--</div>-->
+                </div>
             </section>
         </div>
     </div>

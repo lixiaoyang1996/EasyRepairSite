@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 04/01/2018 17:00:48
+ Date: 08/01/2018 19:27:18
 */
 
 SET NAMES utf8mb4;
@@ -102,13 +102,13 @@ CREATE TABLE `ers_order` (
   CONSTRAINT `ers_order_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `ers_users` (`id`),
   CONSTRAINT `ers_order_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `ers_shop` (`id`),
   CONSTRAINT `ers_order_ibfk_3` FOREIGN KEY (`pid`) REFERENCES `ers_price` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
 -- Records of ers_order
 -- ----------------------------
 BEGIN;
-INSERT INTO `ers_order` VALUES (1, 1, 2, 1, 0, NULL, NULL);
+INSERT INTO `ers_order` VALUES (1, 1, 2, 1, 2, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -125,16 +125,15 @@ CREATE TABLE `ers_price` (
   KEY `tid` (`tid`),
   CONSTRAINT `ers_price_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `ers_shop` (`id`),
   CONSTRAINT `ers_price_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `ers_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='价格表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='价格表';
 
 -- ----------------------------
 -- Records of ers_price
 -- ----------------------------
 BEGIN;
 INSERT INTO `ers_price` VALUES (1, 35, 1, 6);
-INSERT INTO `ers_price` VALUES (2, 45, 1, 11);
-INSERT INTO `ers_price` VALUES (3, 78, 1, 7);
-INSERT INTO `ers_price` VALUES (4, 23, 1, 13);
+INSERT INTO `ers_price` VALUES (5, 67, 1, 11);
+INSERT INTO `ers_price` VALUES (6, 90, 1, 13);
 COMMIT;
 
 -- ----------------------------
@@ -152,16 +151,25 @@ CREATE TABLE `ers_shop` (
   `way` int(11) NOT NULL DEFAULT '0' COMMENT '服务方式 0：上门服务 1：到店服务 2：上门+到店',
   `pic` varchar(255) DEFAULT NULL COMMENT '店铺缩略图',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '运营状态 0：禁用 1：正常',
-  PRIMARY KEY (`id`),
+  `judge` text COMMENT '店铺评价',
+  `judgestatus` int(11) NOT NULL DEFAULT '0' COMMENT '运营状态 0：待评价 1：已评价',
+  `collect` int(11) NOT NULL DEFAULT '0' COMMENT '收藏状态',
+  PRIMARY KEY (`id`) USING BTREE,
   KEY `tid` (`tid`),
   CONSTRAINT `ers_shop_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `ers_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='店铺表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='店铺表';
 
 -- ----------------------------
 -- Records of ers_shop
 -- ----------------------------
 BEGIN;
-INSERT INTO `ers_shop` VALUES (1, 'e修鸽维修', 5, 0, 'e修鸽到家服务工人队伍和业务规模一直在保持着高速发展。截至目前到家服务合作金牌师傅已有1500余位，覆盖城市90余座，用户口碑和好评率遥遥领先，目前到家服务主营业务有家电、房屋、水电等、家庭装修、家电清洗、清洁保洁、家电水电厨卫五金家具安装，同时新开通了手机维修 等。', 1, 2, 0, NULL, 0);
+INSERT INTO `ers_shop` VALUES (1, 'e修鸽维修', 4, 1, 'e修鸽到家服务工人队伍和业务规模一直在保持着高速发展。截至目前到家服务合作金牌师傅已有1500余位，覆盖城市90余座，用户口碑和好评率遥遥领先，目前到家服务主营业务有家电、房屋、水电等、家庭装修、家电清洗、清洁保洁、家电水电厨卫五金家具安装，同时新开通了手机维修 等。', 1, 2, 2, 'https://images.daojia.com/dop/custom/9fab072740a9cb750c554b0753231382.jpg', 1, '\r\n                                    <p>aaa</p>', 1, 0);
+INSERT INTO `ers_shop` VALUES (2, '速必达快修', 5, 0, '速必达快修', 1, 2, 0, 'https://images.daojia.com//dop2c/custom/1bcec4922ada3d748fd43b4c6272c372.jpeg', 1, NULL, 0, 0);
+INSERT INTO `ers_shop` VALUES (3, '诚信维修服务中心', 3, 0, '诚信维修服务中心', 1, 2, 0, 'https://images.daojia.com/dop/custom/653e6c470f04ecf7e1ae182f41123281.png@246h_330w_1e_1c', 1, NULL, 0, 0);
+INSERT INTO `ers_shop` VALUES (4, '及时达', 2, 0, '及时达', 1, 2, 0, 'https://images.daojia.com/dop/custom/8414a2d53c878019c6cf8db47a48ab7f.jpg@246h_330w_1e_1c', 1, NULL, 0, 0);
+INSERT INTO `ers_shop` VALUES (5, '乐科易维', 1, 0, '乐科易维', 1, 2, 0, 'https://images.daojia.com/dop/custom/5a9dde001c6d4cf82f348b9540583752.jpg@246h_330w_1e_1c', 1, NULL, 0, 0);
+INSERT INTO `ers_shop` VALUES (6, '子墨科技', 5, 0, '子墨科技', 1, 1, 1, 'https://gd1.alicdn.com/imgextra/i2/552543451/TB2V9q7mCFjpuFjSszhXXaBuVXa_!!552543451.jpg_400x400.jpg_.webp', 1, NULL, 0, 0);
+INSERT INTO `ers_shop` VALUES (7, '小兵电视维修部', 4, 0, '小兵电视维修部', 1, 1, 1, 'https://gd4.alicdn.com/imgextra/i4/3247563837/TB2TSynpY8kpuFjy0FcXXaUhpXa_!!3247563837.jpg', 1, NULL, 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -175,7 +183,7 @@ CREATE TABLE `ers_type` (
   `show` int(11) NOT NULL DEFAULT '1' COMMENT '是否显示 0：隐藏 1：显示 默认1',
   `sort` int(11) NOT NULL DEFAULT '99' COMMENT '排序id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='维修类别表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='维修类别表';
 
 -- ----------------------------
 -- Records of ers_type
@@ -214,15 +222,21 @@ CREATE TABLE `ers_users` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '账号状态 1：正常 0：禁用',
   `sid` int(11) NOT NULL DEFAULT '0' COMMENT '店铺id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of ers_users
 -- ----------------------------
 BEGIN;
 INSERT INTO `ers_users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@ers.com', 11111111111, NULL, NULL, '安徽信息工程学院', 1514874262, 1514874681, 1, 0);
-INSERT INTO `ers_users` VALUES (2, 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'user1@qq.com', 11111111111, NULL, NULL, '安徽信息工程学院', 1514874262, 1514874653, 1, 0);
-INSERT INTO `ers_users` VALUES (3, 'business1', 'ab36fdc41550db15fd4a47f2e44f0076', 'business1@qq.com', 234523453245, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 1);
+INSERT INTO `ers_users` VALUES (2, 'user1', 'ee11cbb19052e40b07aac0ca060c23ee', 'user1@qq.com', 11111111111, NULL, NULL, '安徽信息工程学院', 1514874262, 1514874653, 1, 0);
+INSERT INTO `ers_users` VALUES (3, 'business1', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business1@qq.com', 234523453245, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 1);
+INSERT INTO `ers_users` VALUES (4, 'business2', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business2@qq.com', 12342134, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 2);
+INSERT INTO `ers_users` VALUES (5, 'business3', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business3@qq.com', 214234, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 3);
+INSERT INTO `ers_users` VALUES (6, 'business4', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business4@qq.com', 5756756, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 4);
+INSERT INTO `ers_users` VALUES (7, 'business5', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business5@qq.com', 12342134, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 5);
+INSERT INTO `ers_users` VALUES (8, 'business6', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business6@qq.com', 12342134, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 6);
+INSERT INTO `ers_users` VALUES (9, 'business7', 'f5d7e2532cc9ad16bc2a41222d76f269', 'business7@qq.com', 12341234, NULL, NULL, '安徽省芜湖市镜湖区和平大厦一楼', 1514874262, 1514874670, 1, 7);
 COMMIT;
 
 -- ----------------------------

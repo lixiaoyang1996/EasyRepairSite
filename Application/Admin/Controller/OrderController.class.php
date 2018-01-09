@@ -57,7 +57,7 @@ SELECT
   p.price,
   t.id    AS tid
 FROM ers_order AS o, ers_shop AS s, ers_users AS u, ers_price AS p, ers_type AS t
-WHERE o.sid = s.id AND o.uid = u.id AND o.pid = p.id AND p.tid = t.id AND s.id={$id}";
+WHERE o.sid = s.id AND o.uid = u.id AND o.pid = p.id AND p.tid = t.id AND o.id={$id}";
         $res = $model->query($sql);
         $order = $res[0];
         $model = M('users');

@@ -1,0 +1,35 @@
+body {
+    padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}
+
+.card {
+    border: none;
+}
+
+.card * {
+    border: none;
+}
+
+.card a {
+    color: gray;
+    text-decoration: none;
+}
+
+.card a:hover {
+    color: blue
+}
+
+.shop a {
+    color: black;
+    text-decoration: none;
+}
+
+.shop a:hover {
+    color: red;
+}

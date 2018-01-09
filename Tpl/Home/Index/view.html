@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>店铺详情</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="__HOME__/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="__HOME__/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="__COMPONENTS__/jquery-ui/jquery-ui.min.css">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{:U('Home/Index/index')}">易修网</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{:U('Home/Index/index')}">首页
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">社区</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{:U('User/Index/index')}">登录 / 注册</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="搜索" id="search"
+                           url="{:U('Home/Index/search')}">
+                    <div class="input-group-append">
+                        <button id="sbt" class="btn btn-outline-secondary" type="button" sid=""
+                                url="{:U('Home/Index/find')}" style="border-radius: 0">搜索
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <br>
+
+    <!-- Portfolio Item Row -->
+    <form>
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-fluid" src="{$shop.pic}" style="width: 100%;height: 500px;">
+            </div>
+            <div class="col-md-4">
+                <h3>{$shop.name}</h3>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            <span>地址：</span>
+                            <span>{$shop.address}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p>
+                            <span>评价：</span>
+                            <span class="text-warning" rate="{$shop.score}"></span>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-right">
+                            <span>已售：</span>
+                            <span>{$shop.orders}</span>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <foreach name="repairs" item="repair">
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" name="pid[]" id="{$repair.id}" value="{$repair.id}">
+                            <label for="{$repair.id}">
+                                {$repair.brand}{$repair.type}
+                            </label>
+                        </div>
+                        <div class="col">
+                            <div class="text-right" style="color: red;">
+                                <p>
+                                    <span>¥</span>
+                                    <span>{$repair.price}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </foreach>
+                <div class="row">
+                    <if condition="($shop.way eq 0) OR ($shop.way eq 2)">
+                        <div class="col">
+                            <input type="radio" id="radio1" name="way" value="0"
+                            <if condition="$shop.way eq 0">checked</if>
+                            >
+                            <label for="radio1">
+                                上门服务
+                            </label>
+                        </div>
+                    </if>
+                    <if condition="($shop.way eq 1) OR ($shop.way eq 2)">
+                        <div class="col">
+                            <div
+                            <if condition="$shop.way eq 2">class="text-right"</if>
+                            >
+                            <input type="radio" id="radio2" name="way" value="1"
+                            <if condition="$shop.way eq 1">checked</if>
+                            >
+                            <label for="radio2">
+                                到店维修
+                            </label>
+                        </div>
+                </div>
+                </if>
+                <input type="hidden" name="sid" value="{$shop.id}">
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="save('{:U("Home/Index/save")}')">立即下单</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-secondary btn-lg btn-block float-right"
+                            onclick="link('{:U("Home/Index/link")}',{$shop.id})">联系商家</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+           aria-selected="true">详情</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+           aria-selected="false">评价</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <p class="text-center">
+            <img src="https://images.daojia.com/dop/custom/0e14075ec6e4ad78d15c9f3156b6ee9f.png">
+            <img src="https://images.daojia.com/dop/custom/afeb885788d0b8b9751c177b089a6e5d.png">
+            <img src="https://images.daojia.com/dop/custom/f223c4939f49daa4d9def574f61c3f85.png">
+        </p>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+    </div>
+</div>
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; 易修网 2018</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- jquery-ui -->
+<script src="__COMPONENTS__/jquery-ui/external/jquery/jquery.js"></script>
+<script src="__COMPONENTS__/jquery-ui/jquery-ui.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="__HOME__/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- layer -->
+<script src="__COMPONENTS__/layer/layer.js"></script>
+<script>
+    function showRate(rate) {
+        return "★★★★★☆☆☆☆☆".slice(5 - rate, 10 - rate);
+    }
+
+    $("[rate]").each(function (index, data) {
+        var rate = $(data).attr("rate");
+        var res = showRate(rate);
+        $(data).html(res);
+    });
+
+    $("#search").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: $('#search').attr('url'),
+                type: 'post',
+                data: {key: request.term},
+                dataType: 'json',
+                success: function (data) {
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.name,
+                            value: item.name,
+                            id: item.id
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            $('#sbt').attr('sid', ui.item.id);
+        }
+    });
+
+    $('#sbt').click(function () {
+        $.ajax({
+            url: $('#sbt').attr('url'),
+            type: 'post',
+            data: {id: $('#sbt').attr('sid')},
+            dataType: 'json',
+            success: function (response) {
+                if (response.url) {
+                    window.location.href = response.url;
+                }
+            }
+        });
+    });
+
+    function save(url) {
+        var userId = localStorage.getItem('userId');
+        if (userId) {
+            layer.confirm('确定提交订单？', {title: '提示'}, function (index) {
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: $('form').serializeArray(),
+                    dataType: 'json',
+                    success: function (response) {
+                        layer.msg(response.message, {
+                            icon: response.code,
+                            time: 600
+                        }, function () {
+                            layer.confirm('进入后台进行订单确认？', {title: '提示'}, function (index) {
+                                if (response.url) {
+                                    window.location.href = response.url;
+                                }
+                                layer.close(index);
+                            });
+                        });
+                    }
+                });
+                layer.close(index);
+            });
+        } else {
+            layer.confirm('账号暂未登录，请登录后操作！', {title: '提示'}, function (index) {
+                layer.close(index);
+            });
+        }
+
+    }
+
+    function link(url, id) {
+        layer.msg('正在施工中。。。', {
+            icon: 3,
+            time: 600
+        }, function () {
+        });
+    }
+</script>
+</body>
+
+</html>

@@ -17,16 +17,24 @@
                 <section class="invoice">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h2 class="page-header pull-left">
-                                <i class="fa fa-globe"></i>
-                                <i>YourEstabLishment</i>
-                            </h2>
+                            <if condition="$n.id neq ''">
+                                <h2 class="page-header pull-left">
+                                    <i class="fa fa-globe"></i>
+                                    <i>YourEstabLishment</i>
+                                </h2>
+                            </if>
                             <if condition="$n.id eq ''">
+                                <p style="font-family: 楷体 ;font-size: 18px">
+                                    <strong>
+                                        作为一个新手商家，梦想当然是有的，然而第一步得创建一个属于你自己的店铺！！
+                                    </strong>
+                                </p>
+                                <br>
                                 <a href="{:U('Business/StoreManage/add')}"
-                                   class="btn btn-primary pull-right">添加店铺
+                                   class="btn btn-primary pull-right"
+                                   style="width:150px;box-shadow: 6px 6px 6px #3C8DBC;">添加店铺
                                 </a>
                             </if>
-
                         </div>
                         <!-- /.col -->
                     </div>

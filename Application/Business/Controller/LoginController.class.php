@@ -27,16 +27,18 @@ class LoginController extends Controller
 
         if ($result) {
             $_SESSION['userId'] = $result['id'];
-//            $_SESSION['username'] = $result['username'];
+            $_SESSION['userName'] = $result['username'];
+            $_SESSION['userSign'] = $result['sign'];
+            $_SESSION['userTime'] = $result['create_time'];
             // 判断用户是否有权限登录管理员后台
             $auth = new \Think\Auth();
             $result = $auth->check('Business/*', $_SESSION['userId']);
             if (!$result) {
-               return response('2', '登陆失败！');
+                return response('2', '登陆失败！');
             }
             return response(1, '登录成功！', null, U('Business/SalesVolume/index'));
         } else {
-           return response('2', '登陆失败！');
+            return response('2', '登陆失败！');
         }
     }
 

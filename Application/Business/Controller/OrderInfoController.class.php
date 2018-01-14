@@ -46,7 +46,7 @@ class OrderInfoController extends Controller\BusinessBaseController
         AND o.status >=2
         ";
         $orders = $model->query($sql);
-
+//        var_dump($orders);
         for ($i = 0; $i < count($orders); $i++) {
             $model = M('users');
             $businessphone = $model->where(array('sid' => $orders[$i] ['sid']))->getField('phone');
@@ -57,11 +57,6 @@ class OrderInfoController extends Controller\BusinessBaseController
             $type = $res[2]['type'] . $res[1]['type'];
             $orders[$i] ['type'] = $type;
         }
-
-        $count = count($orders);
-        $Page = new\Think\Page($count, 1);
-        $show = $Page->show();
-        $this->assign('page', $show);
 
         $this->assign('orders', $orders);
         $this->display();
@@ -130,5 +125,51 @@ class OrderInfoController extends Controller\BusinessBaseController
         } else {
             return response(2, '修改失败！');
         }
+    }
+
+    public function search()
+    {
+        $key = I('key');
+
+        $result = $_SESSION['userId'];
+        $user = M("users");
+        $sid = $user->where("id=$result")->getField('sid');
+
+        $model = new Model();
+        $sql = "
+                SELECT
+            o.*,
+            o.create_time,
+            s.name AS shopname,
+            u.address AS useraddress,
+            u.username,
+            u.phone AS userphone,
+            u.email AS useremail,
+            p.price,
+            t.id AS tid
+        FROM
+            ers_order AS o,
+            ers_shop AS s,
+            ers_users AS u,
+            ers_price AS p,
+            ers_type AS t
+        WHERE
+            o.sid = $sid
+        AND o.uid = u.id
+        AND o.pid = p.id
+        AND p.tid = t.id
+        AND o.sid = s.id
+        AND o.status >=2
+        ";
+        $orders = $model->query($sql);
+        $res = $orders->where(array('name' => array('like', '%' . $key . '%')))->field('username,id')->select();
+        response(1, '', $res, '');
+    }
+
+    public function find()
+    {
+        $id = I('id');
+        $url = U('Business/OrderInfo/index', array('id' => $id));
+        response(1, '', null, $url);
     }
 }

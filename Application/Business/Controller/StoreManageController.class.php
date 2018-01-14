@@ -55,15 +55,23 @@ class StoreManageController extends Controller\BusinessBaseController
         $data = $shop->create();
         $data["create_time"] = time();
 
+        $sname = $shop->getField('name', true);
+
+        for ($i = 0; $i < count($sname); $i++) {
+            if ($name == $sname[$i]) {
+                response(2, '该店铺名已经存在,请从新输入！');
+                break;
+            }
+        }
         if ($name != null) {
             $result = $shop->add($data);
-            $bsid = $shop->where(array('name' => $name))->getField('id');
 
+            $bsid = $shop->where(array('name' => $name))->getField('id');
             $userId = $_SESSION['userId'];
             $user = M('users');
 
-            $arr['sid']= $bsid;
-            $user ->where("id= $userId")->save($arr);
+            $arr['sid'] = $bsid;
+            $user->where("id= $userId")->save($arr);
 
         } else {
             return response(2, '店铺名不能为空！');
@@ -75,20 +83,6 @@ class StoreManageController extends Controller\BusinessBaseController
             return response(2, '添加失败');
         }
 
-
-//        $result = $shop->add($data);
-
-//        $sid = $shop->where(array('id' => $id))->getField('id');
-//        $user = M('users');
-//        $arr['sid'] = $sid;
-//        $user->add($arr);
-
-
-//        if ($result > 0) {
-//            return response(1, '添加成功！', null, U('Business/StoreManage/index'));
-//        } else {
-//            return response(2, "添加失败！");
-//        }
     }
 
     public function edit()

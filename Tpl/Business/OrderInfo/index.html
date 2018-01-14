@@ -1,4 +1,3 @@
-<script src="__BUSINESS__/css/upload.css"></script>
 <div class="content-wrapper">
     <div class="container">
 
@@ -7,11 +6,12 @@
                 <div class="box-tools">
                     <form action="{:U(Business/OrderInfo/index)}" method="post">
                         <div class="input-group input-group-sm" style="width: 200px;margin-right: 28px;">
-                            <input type="text" name="kw" class="form-control " value="<?php echo I('kw');?>"
+                            <input type="text" class="form-control" id="search" url="{:U('Business/OrderInfo/search')}"
                                    placeholder="请输入顾客名">
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-default" id="sbt" uid=""
+                                        url="{:U('Business/OrderInfo/find')}"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </form>
@@ -117,9 +117,9 @@
                     </section>
                 </foreach>
                 <div class="box-footer">
-                    <!--<div class="pages">-->
-                        <!--{$page}-->
-                    <!--</div>-->
+                    <div class="result page">
+                        {$page}
+                    </div>
                 </div>
             </section>
         </div>
@@ -127,3 +127,47 @@
 
 </div>
 
+<!-- jquery-ui -->
+<script src="__COMPONENTS__/jquery-ui/external/jquery/jquery.js"></script>
+<script src="__COMPONENTS__/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    $("#search").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: $('#search').attr('url'),
+                type: 'post',
+                data: {key: request.term},
+                dataType: 'json',
+                success: function (data) {
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.name,
+                            value: item.name,
+                            id: item.id
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 1,
+        select: function (event, ui) {
+            $('#sbt').attr('uid', ui.item.id);
+        }
+    });
+
+
+    $('#sbt').click(function () {
+        $.ajax({
+            url: $('#sbt').attr('url'),
+            type: 'post',
+            data: {id: $('#sbt').attr('oid')},
+            dataType: 'json',
+            success: function (response) {
+                if (response.url) {
+                    window.location.href = response.url;
+                }
+            }
+        });
+    });
+</script>

@@ -21,7 +21,6 @@ class PriceController extends Controller\BusinessBaseController
         $shop = M("shop");
         $stid = $shop->where("id=$sid")->getField('tid');
 
-
         $model = new Model();
         $sql = "SELECT p.*,t.name AS brand FROM  ers_shop AS s,ers_type AS t,ers_price AS p WHERE p.tid=t.id AND p.sid=s.id AND s.id={$sid}";
         $p = $model->query($sql);
@@ -37,7 +36,6 @@ class PriceController extends Controller\BusinessBaseController
 
         $type = M("type");
         $ptid = $type->where("name='$Type'")->getField('id');
-
 
         $this->assign('p', $p);
         $this->display();
